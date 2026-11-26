@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歐洲北歐與冰島精選團體行程總覽｜貴賓專屬手冊</title>
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 載入 Google Fonts: Noto Sans TC & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- 載入 Font Awesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', '"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        nordic: {
+                            deep: '#0B192C',      // 深海藍
+                            navy: '#1E3E62',      // 峽灣藍
+                            glacier: '#EBF5FB',   // 冰川淺藍
+                            ice: '#38BDF8',       // 冰河亮藍
+                            aurora: '#10B981',    // 極光綠
+                            auroraLight: '#D1FAE5'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 自訂滾動條與列印樣式 */
+        body {
+            background-color: #F4F8FB;
+            color: #1E293B;
+        }
+
+        /* 隱藏水平滾動條但保留滑動功能 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 極光漸層背景 */
+        .aurora-hero {
+            background: linear-gradient(135deg, #0B192C 0%, #16325B 55%, #0F4C5C 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .aurora-glow {
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 60%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(16,185,129,0.22) 0%, rgba(56,189,248,0.12) 45%, rgba(11,25,44,0) 70%);
+            pointer-events: none;
+        }
+
+        /* 列印專用優化 */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+            }
+            .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
+                box-shadow: none !important;
+                border: 1px solid #CBD5E1 !important;
+            }
+            .aurora-hero {
+                background: #0B192C !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page-break-inside-avoid {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-sky-200 selection:text-slate-900">
+
+    <!-- 頂部極光視覺橫幅 (Hero Header) -->
+    <header class="aurora-hero text-white shadow-lg">
+        <div class="aurora-glow"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative z-10">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div>
+                    <h1 class="text-2xl sm:text-4xl font-black tracking-tight leading-tight">
+                        歐洲北歐與冰島精選團體行程總覽
+                    </h1>
+                    <p class="mt-2 text-sky-200 text-sm sm:text-base max-w-2xl leading-relaxed">
+                        完整彙整五大人氣經典行程之路線藍圖、航班時刻、精選住宿規格與每日三餐規劃，讓您的北國夢幻之旅從容啟程。
+                    </p>
+                </div>
+
+                <!-- 貴賓便利工具列 (列印按鈕) -->
+                <div class="flex flex-wrap items-center gap-3 no-print">
+                    <button onclick="window.print()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold shadow-md transition cursor-pointer">
+                        <i class="fa-solid fa-print"></i>
+                        <span>列印</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 黏性導覽分頁切換器 (Sticky Tabs Navigation) -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="tourTabsContainer" class="flex items-center gap-2 py-3 overflow-x-auto no-scrollbar">
+                <!-- 由 JavaScript 動態渲染分頁按鈕 -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容區 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 動態渲染容器 -->
+        <div id="appContent"></div>
+    </main>
+
+    <!-- 頁尾版權與服務聲明 -->
+    <footer class="bg-nordic-deep text-slate-300 py-8 mt-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2.5 text-white font-bold text-base">
+                <i class="fa-solid fa-compass text-emerald-400 text-xl"></i>
+                <span>歐洲北歐與冰島精選團體行程總覽</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-400 text-center sm:text-right">
+                本網頁依據行程說明會資料彙整製作，風景與餐食照片僅供情境示意，實際內容依季節天候與現場安排為準。
+            </p>
+        </div>
+    </footer>
+
+    <!-- 內建完整資料庫與互動渲染邏輯 -->
+    <script>
+        // 五大行程完整資料庫（含專屬路線節點與 SVG 視覺化地圖資料）
+        const TOURS_DATA = [
+            {
+                id: "tour1",
+                tabTitle: "① 經典冰島縮影 10日",
+                code: "26ED709BR",
+                title: "玩樂369 經典冰島縮影 10日",
+                subtitle: "斯奈山半島・南海岸・金環之旅・騎冰島馬・冰河健行・藍湖溫泉・時尚巴黎",
+                routeSummary: "台北 ✈ 巴黎 ✈ 雷克雅維克 ➔ 藍湖溫泉 ➔ 南海岸（冰河健行、黑沙灘、冰河湖）➔ 金環之旅/騎冰島馬 ➔ 斯奈山半島 ➔ 雷克雅維克 ✈ 巴黎市區 ✈ 台北",
+                dateRange: "2026/07/09(四) ～ 2026/07/18(六)",
+                days: 10,
+                airlineMain: "長榮航空 (BR) + 冰島航空 (FI)",
+                badge: "長榮直飛巴黎・經典南岸與半島",
+                badgeColor: "bg-sky-100 text-sky-800 border-sky-200",
+                heroImg: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?auto=format&fit=crop&w=1400&q=80",
+                meetingInfo: {
+                    time: "2026/07/09 (四) 21:00",
+                    place: "桃園國際機場 第二航廈 長榮航空 第20號櫃台"
+                },
+                baggage: "長榮經濟艙託運 2 件（每件限重 23KG）；中段冰島航空託運限 1 件 23KG、隨身手提 1 件 10KG。",
+                routeMap: {
+                    type: "iceland-paris",
+                    title: "冰島西南部・南海岸・斯奈山半島 ＋ 巴黎雙城路線藍圖",
+                    desc: "長榮直飛巴黎銜接冰島，深度走訪冰島南岸冰川潟湖、黃金圈與斯奈山半島，回程再暢遊花都巴黎兩日。",
+                    nodes: [
+                        { step: "起訖", name: "台北桃園 TPE", mode: "✈ 長榮直飛", detail: "Day 1 出發 / Day 10 返抵" },
+                        { step: "轉機入境", name: "巴黎戴高樂 CDG", mode: "✈ 冰島航空", detail: "Day 2 轉機飛往雷克雅維克" },
+                        { step: "Day 2", name: "藍湖溫泉 & 塞爾福斯", mode: "🚌 87km + 97km", detail: "世界最大露天火山地熱溫泉" },
+                        { step: "Day 3-4", name: "南海岸 & 傑古沙龍冰河湖", mode: "🚌 雙瀑布・冰河健行", detail: "索爾黑馬冰川、黑沙灘、水陸兩用船" },
+                        { step: "Day 5", name: "金環之旅 & 騎冰島馬", mode: "🚌 黃金圈 + 67km", detail: "黃金瀑布、間歇泉、板塊裂谷、博爾加內斯" },
+                        { step: "Day 6", name: "斯奈山半島 & 雷克雅維克", mode: "🚌 119km + 179km", detail: "教會山、黑教堂、海蝕洞、市區小龍蝦餐" },
+                        { step: "Day 7-9", name: "花都巴黎深度漫遊", mode: "✈ 飛返巴黎市區", detail: "塞納河遊船、拉法葉百貨、艾菲爾鐵塔、百年咖啡館" }
+                    ],
+                    svgPoints: [
+                        { x: 110, y: 175, label: "雷克雅維克", sub: "Day 2/6/7", color: "#38BDF8" },
+                        { x: 105, y: 215, label: "藍湖溫泉", sub: "Day 2", color: "#10B981" },
+                        { x: 175, y: 220, label: "塞爾福斯/南岸", sub: "Day 2-4 冰河健行", color: "#38BDF8" },
+                        { x: 330, y: 195, label: "傑古沙龍冰河湖", sub: "Day 4 水陸兩用船", color: "#F59E0B" },
+                        { x: 185, y: 165, label: "金環之旅/騎冰島馬", sub: "Day 5", color: "#10B981" },
+                        { x: 125, y: 130, label: "博爾加內斯", sub: "Day 5", color: "#38BDF8" },
+                        { x: 65,  y: 115, label: "斯奈山半島", sub: "Day 6 教會山", color: "#F59E0B" }
+                    ],
+                    svgPath: "M 110 175 L 105 215 L 175 220 L 330 195 L 185 165 L 125 130 L 65 115 L 110 175",
+                    extraCity: { name: "法國・巴黎 Paris", note: "去程轉機 ＋ 回程連住2晚市區觀光購物" }
+                },
+                highlights: [
+                    {
+                        title: "藍湖溫泉 Blue Lagoon",
+                        desc: "世界最大露天火山地熱溫泉，含入場券、天然白色矽土泥面膜、毛巾及飲料一杯（請自備泳裝）。",
+                        img: "https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "索爾黑馬冰河健行",
+                        desc: "在專業冰川嚮導帶領下，穿戴冰爪與安全裝備腳踏千年冰原，近距離探索冰脊與冰縫奇觀。",
+                        img: "https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "傑古沙龍冰河湖水陸兩用船",
+                        desc: "搭乘水陸兩用遊船穿梭於湛藍浮冰之間，近距離欣賞瓦特納冰原崩落的千年藍冰。",
+                        img: "https://images.unsplash.com/photo-1520769669658-f07657f5a307?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "騎冰島馬體驗 & 斯奈山半島",
+                        desc: "體驗冰島馬獨有的平穩「tölt」步態，並走訪教會山、布迪爾黑教堂與海蝕洞。",
+                        img: "https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "時尚花都巴黎・塞納河遊船",
+                        desc: "暢遊塞納河遊船、拉法葉與春天百貨購物，造訪艾菲爾鐵塔、凱旋門、巴黎聖母院與波寇柏百年咖啡館。",
+                        img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80"
+                    }
+                ],
+                flights: [
+                    { leg: "去程", airline: "長榮航空 BR087", depTime: "2026/07/09(四) 23:30", depAirport: "桃園機場 (TPE)", arrTime: "2026/07/10(五) 08:05", arrAirport: "巴黎戴高樂機場 (CDG)", duration: "14小時35分" },
+                    { leg: "中段 1", airline: "冰島航空 FI543", depTime: "2026/07/10(五) 14:00", depAirport: "巴黎戴高樂機場 (CDG)", arrTime: "2026/07/10(五) 15:35", arrAirport: "雷克雅維克機場 (KEF)", duration: "03小時35分" },
+                    { leg: "中段 2", airline: "冰島航空 FI542", depTime: "2026/07/15(三) 07:35", depAirport: "雷克雅維克機場 (KEF)", arrTime: "2026/07/15(三) 13:00", arrAirport: "巴黎戴高樂機場 (CDG)", duration: "03小時25分" },
+                    { leg: "回程", airline: "長榮航空 BR088", depTime: "2026/07/17(五) 11:20", depAirport: "巴黎戴高樂機場 (CDG)", arrTime: "2026/07/18(六) 07:00", arrAirport: "桃園機場 (TPE)", duration: "13小時40分" }
+                ],
+                hotels: [
+                    { date: "2026/07/10 (五)", city: "SELFOSS 塞爾福斯", name: "HOTEL SELFOSS", tag: "冰島西南部河畔星級飯店", address: "EYRAVEGUR 2, 800 SELFOSS, IS" },
+                    { date: "2026/07/11 (六)", city: "SELFOSS / HELLA", name: "STRACTA HOTEL HELLA", tag: "南岸現代化景觀度假飯店", address: "RANGÁRFLATIR 4, 850, HELLA, ICELAND" },
+                    { date: "2026/07/12 (日)", city: "SELFOSS 塞爾福斯", name: "HOTEL SELFOSS", tag: "冰島西南部河畔星級飯店", address: "EYRAVEGUR 2, 800 SELFOSS, IS" },
+                    { date: "2026/07/13 (一)", city: "BORGARNES 博爾加內斯", name: "HOTEL BORGARNES", tag: "西部海灣小鎮經典飯店", address: "Egilsgata 12-16 Borgarnes 310 IS" },
+                    { date: "2026/07/14 (二)", city: "KEFLAVIK 凱夫拉維克", name: "COURTYARD BY MARRIOTT REYKJAVIK KEFLAVIK AIRPORT", tag: "國際連鎖萬豪集團旗下飯店", address: "ADALGATA 60, REYKJANESBAER, ICELAND, 230" },
+                    { date: "2026/07/15 (三)", city: "PARIS 巴黎", name: "MERCURE PARIS CDG AIRPORT & CONVENTION", tag: "雅高集團四星級飯店（連泊第1晚）", address: "ROISSYPOLE OUEST, ROUTE DE LA COMMUNE, 95713 ROISSY CDG, FRANCE" },
+                    { date: "2026/07/16 (四)", city: "PARIS 巴黎", name: "MERCURE PARIS CDG AIRPORT & CONVENTION", tag: "雅高集團四星級飯店（連泊第2晚）", address: "ROISSYPOLE OUEST, ROUTE DE LA COMMUNE, 95713 ROISSY CDG, FRANCE" }
+                ],
+                itinerary: [
+                    { day: "Day 1", date: "7/9 (四)", route: "台北 Taipei / 巴黎 Paris", spots: "搭乘長榮航空直飛班機前往浪漫花都巴黎，於機上充分休息養足體力。", breakfast: "X", lunch: "X", dinner: "機上供應", hotel: "夜宿機上" },
+                    { day: "Day 2", date: "7/10 (五)", route: "巴黎 / 雷克雅維克 － 藍湖溫泉 － 冰島西南部小鎮", spots: "抵達冰島後前往世界最大露天溫泉【藍湖溫泉】（含入場券、矽土泥面膜、毛巾及飲料一杯，請自備泳裝）。", breakfast: "機上供應", lunch: "配合航班時間，敬請自理", dinner: "冰島風味料理", hotel: "HOTEL SELFOSS" },
+                    { day: "Day 3", date: "7/11 (六)", route: "冰島西南部小鎮 － 南岸瀑布與冰河健行 － 冰島南部小鎮", spots: "【西爾加蘭第瀑布】（水濂洞瀑布）、【斯科加瀑布】（彩虹瀑布）、【索爾黑馬冰河健行】、【黑沙灘 Reynisfjara 與玄武岩岩石群】。", breakfast: "飯店內早餐", lunch: "冰島燒烤肋排料理", dinner: "旅館主廚推薦料理", hotel: "STRACTA HOTEL HELLA" },
+                    { day: "Day 4", date: "7/12 (日)", route: "冰島南部小鎮 － 瓦特納冰原冰河湖 － 冰島西南部小鎮", spots: "南岸精華之旅：【傑古沙龍冰河潟湖水陸兩用遊船】、【地吼雷海岬 Dyrhólaey】天然海蝕拱門奇觀。", breakfast: "飯店內早餐", lunch: "冰島鄉村風味料理", dinner: "旅館主廚推薦料理", hotel: "HOTEL SELFOSS" },
+                    { day: "Day 5", date: "7/13 (一)", route: "冰島西南部小鎮 － 金環之旅 － 騎冰島馬 － 博爾加內斯", spots: "經典金環之旅：【黃金瀑布 Gullfoss】、【史托克間歇泉】、【辛格維利爾國家公園】（世界遺產・歐亞與北美板塊交界）、特別安排【騎冰島馬體驗】。", breakfast: "旅館內早餐", lunch: "冰島風味料理", dinner: "旅館主廚推薦料理", hotel: "HOTEL BORGARNES" },
+                    { day: "Day 6", date: "7/14 (二)", route: "博爾加內斯 － 斯奈山半島 － 雷克雅維克市區觀光", spots: "冰島縮影斯奈山半島：【Gatklettur 海蝕洞】、【布迪爾黑教堂】、【教會山（草帽山）】；首都雷克雅維克：【哈爾格林姆教堂】、【哈帕音樂廳】、【太陽航海者】。", breakfast: "飯店內早餐", lunch: "冰島風味料理", dinner: "冰島特色小龍蝦套餐", hotel: "COURTYARD BY MARRIOTT REYKJAVIK KEFLAVIK AIRPORT" },
+                    { day: "Day 7", date: "7/15 (三)", route: "雷克雅維克 / 巴黎 Paris（塞納河遊船・時尚百貨購物）", spots: "飛返巴黎，搭乘【塞納河遊船】飽覽兩岸風光，前往【巴黎春天百貨】與【拉法葉奧斯曼旗艦店】享受時尚購物趣。", breakfast: "飯店內早餐", lunch: "配合班機，發餐費 20 歐元", dinner: "海鮮拼盤 + 烤田螺 + 法式排餐（紅酒一杯）", hotel: "MERCURE PARIS CDG AIRPORT & CONVENTION" },
+                    { day: "Day 8", date: "7/16 (四)", route: "巴黎全日經典市區觀光", spots: "【巴黎聖母院】、【莎士比亞書店】、【巴黎左岸文藝漫步】、【艾菲爾鐵塔】、【凱旋門】、【香榭麗舍大道】、【亞歷山大三世橋】。", breakfast: "飯店內早餐", lunch: "波寇柏百年咖啡館法式料理", dinner: "中式七菜一湯", hotel: "MERCURE PARIS CDG AIRPORT & CONVENTION" },
+                    { day: "Day 9", date: "7/17 (五)", route: "巴黎 Paris / 台北 Taipei", spots: "整理行囊帶著滿滿北歐與法式浪漫回憶，前往戴高樂機場搭機返回台北。", breakfast: "飯店內早餐", lunch: "機上供應", dinner: "機上供應", hotel: "夜宿機上" },
+                    { day: "Day 10", date: "7/18 (六)", route: "抵達台北 Taipei", spots: "班機於今日清晨抵達桃園國際機場，圓滿結束經典冰島與巴黎10日之旅。", breakfast: "機上供應", lunch: "X", dinner: "X", hotel: "溫暖的家" }
+                ]
+            },
+            {
+                id: "tour2",
+                tabTitle: "② 經典北歐五國 14日",
+                code: "26ED717EKF",
+                title: "玩樂369 經典北歐五國 14日",
+                subtitle: "冰島南岸・挪威縮影景觀火車・挪威雙峽灣遊船・峽灣貴族旅館・雙跨國過夜遊輪",
+                routeSummary: "台北 ✈ 杜拜 ✈ 斯德哥爾摩 🚢 詩麗雅號 ➔ 赫爾辛基 ✈ 雷克雅維克（藍湖、南岸、冰河湖、金環）✈ 卑爾根 🚂 挪威縮影火車 🚢 索格納峽灣 ➔ 布里斯達冰河 🚢 蓋倫格峽灣 ➔ 奧斯陸 🚢 DFDS遊輪 ➔ 哥本哈根 ✈ 杜拜 ✈ 台北",
+                dateRange: "2026/07/17(五) ～ 2026/07/30(四)",
+                days: 14,
+                airlineMain: "阿聯酋航空 (EK A380) + 冰島航空 (FI)",
+                badge: "一次暢遊五國・雙遊輪＋峽灣貴族旅館",
+                badgeColor: "bg-indigo-100 text-indigo-800 border-indigo-200",
+                heroImg: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1400&q=80",
+                meetingInfo: {
+                    time: "2026/07/17 (五) 20:50",
+                    place: "桃園國際機場 第二航廈 阿聯酋航空 25號櫃台"
+                },
+                baggage: "阿聯酋經濟艙採計重制 30KG（不限件數，單件不超過 30KG）；歐陸／冰島中段航班託運限 1 件 20～23KG、隨身 1 件 7～10KG。",
+                routeMap: {
+                    type: "nordic-5",
+                    title: "北歐五國（瑞典・芬蘭・冰島・挪威・丹麥）海陸空全景路線圖",
+                    desc: "雙點進出不走回頭路！結合兩趟中段航班飛越冰島與峽灣、兩艘跨國過夜豪華遊輪與挪威縮影景觀火車。",
+                    nodes: [
+                        { step: "去程", name: "台北 ✈ 杜拜 ✈ 斯德哥爾摩", mode: "✈ 阿聯酋 A380", detail: "Day 1-2 抵達瑞典北方威尼斯" },
+                        { step: "Day 3-4", name: "斯德哥爾摩 🚢 赫爾辛基", mode: "🚢 詩麗雅號過夜遊輪", detail: "橫越波羅的海，暢遊芬蘭大教堂" },
+                        { step: "Day 4-6", name: "冰島南岸 & 黃金圈", mode: "✈ 冰島航空 FI343", detail: "藍湖溫泉、傑古沙龍冰河湖、黃金圈、冰島馬秀" },
+                        { step: "Day 7-9", name: "卑爾根 & 挪威雙峽灣", mode: "✈ FI334 + 🚂 景觀火車", detail: "索格納峽灣、貴族旅館、精靈車、蓋倫格峽灣" },
+                        { step: "Day 10-11", name: "黃金之路 ➔ 奧斯陸", mode: "🚌 老鷹與精靈之路", detail: "冬奧跳台、維格蘭雕刻公園、阿克斯胡斯城堡" },
+                        { step: "Day 11-13", name: "奧斯陸 🚢 哥本哈根", mode: "🚢 DFDS 北海過夜遊輪", detail: "腓特烈堡、克倫波堡、新港運河遊船、小美人魚" },
+                        { step: "回程", name: "哥本哈根 ✈ 杜拜 ✈ 台北", mode: "✈ 阿聯酋 A380", detail: "Day 13-14 圓滿返抵桃園機場" }
+                    ],
+                    svgPoints: [
+                        { x: 65,  y: 95,  label: "冰島 (雷克雅維克/南岸)", sub: "Day 4-6 飛航往返", color: "#38BDF8" },
+                        { x: 185, y: 145, label: "卑爾根 Bergen", sub: "Day 7 峽灣門戶", color: "#10B981" },
+                        { x: 215, y: 115, label: "索格納 & 蓋倫格雙峽灣", sub: "Day 8-9 景觀火車/遊船", color: "#F59E0B" },
+                        { x: 255, y: 155, label: "奧斯陸 Oslo", sub: "Day 11 挪威首都", color: "#10B981" },
+                        { x: 245, y: 205, label: "哥本哈根 Copenhagen", sub: "Day 11-13 DFDS遊輪抵達", color: "#38BDF8" },
+                        { x: 325, y: 155, label: "斯德哥爾摩 Stockholm", sub: "Day 2-3 瑞典首都", color: "#F59E0B" },
+                        { x: 410, y: 130, label: "赫爾辛基 Helsinki", sub: "Day 3-4 詩麗雅號抵達", color: "#10B981" }
+                    ],
+                    svgPath: "M 325 155 L 410 130 L 65 95 L 185 145 L 215 115 L 255 155 L 245 205",
+                    extraCity: { name: "兩段跨國過夜遊輪 ＋ 兩段中段飛機", note: "波羅的海詩麗雅號（面海外艙）＋ 北海 DFDS 遊輪（面海外艙）" }
+                },
+                highlights: [
+                    {
+                        title: "挪威雙峽灣遊船 & 挪威縮影火車",
+                        desc: "暢遊峽灣之王「索格納峽灣」與世界遺產「蓋倫格峽灣」，搭乘最陡峭的弗洛姆景觀鐵路。",
+                        img: "https://images.unsplash.com/photo-1507272931001-fc06c17e4f43?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "入住百年峽灣貴族旅館 Kviknes Hotel",
+                        desc: "坐落於松恩峽灣畔的歷史名宿，推窗即是如詩如畫的峽灣與雪山倒影。",
+                        img: "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "雙跨國豪華過夜遊輪體驗",
+                        desc: "搭乘波羅的海「詩麗雅號」與北海「DFDS Seaways」，享海盜式自助大餐與海上日落。",
+                        img: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "冰島南岸精華・藍湖溫泉與冰河湖",
+                        desc: "一次集結冰島藍湖溫泉、傑古沙龍冰河湖遊船、鑽石沙灘、黃金圈與冰島馬秀。",
+                        img: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "布里斯達冰河精靈登山車 Troll Car",
+                        desc: "搭乘敞篷精靈登山車輕鬆深入約斯特達爾冰原核心，近距離仰望湛藍冰舌。",
+                        img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
+                    }
+                ],
+                flights: [
+                    { leg: "去程 1", airline: "阿聯酋航空 EK367 (A380)", depTime: "2026/07/17(五) 23:50", depAirport: "桃園機場 (TPE)", arrTime: "2026/07/18(六) 04:35", arrAirport: "杜拜機場 (DXB)", duration: "08小時45分" },
+                    { leg: "去程 2", airline: "阿聯酋航空 EK157", depTime: "2026/07/18(六) 08:10", depAirport: "杜拜機場 (DXB)", arrTime: "2026/07/18(六) 13:45", arrAirport: "斯德哥爾摩阿蘭達機場 (ARN)", duration: "07小時35分" },
+                    { leg: "中段 1", airline: "冰島航空 FI343", depTime: "2026/07/20(一) 15:00", depAirport: "赫爾辛基機場 (HEL)", arrTime: "2026/07/20(一) 15:40", arrAirport: "雷克雅維克機場 (KEF)", duration: "02小時40分" },
+                    { leg: "中段 2", airline: "冰島航空 FI334", depTime: "2026/07/23(四) 10:10", depAirport: "雷克雅維克機場 (KEF)", arrTime: "2026/07/23(四) 14:30", arrAirport: "卑爾根機場 (BGO)", duration: "03小時20分" },
+                    { leg: "回程 1", airline: "阿聯酋航空 EK152", depTime: "2026/07/29(三) 15:15", depAirport: "哥本哈根凱斯楚普機場 (CPH)", arrTime: "2026/07/30(四) 00:15", arrAirport: "杜拜機場 (DXB)", duration: "07小時00分" },
+                    { leg: "回程 2", airline: "阿聯酋航空 EK366 (A380)", depTime: "2026/07/30(四) 03:45", depAirport: "杜拜機場 (DXB)", arrTime: "2026/07/30(四) 16:15", arrAirport: "桃園機場 (TPE)", duration: "08小時30分" }
+                ],
+                hotels: [
+                    { date: "2026/07/18 (六)", city: "STOCKHOLM 斯德哥爾摩", name: "ELITE HOTEL CAROLINA TOWER", tag: "瑞典現代設計四星飯店", address: "Eugeniavägen 6 Solna 171 64 SE" },
+                    { date: "2026/07/19 (日)", city: "波羅的海過夜遊輪", name: "TALLINK SILJA OY (詩麗雅號遊輪)", tag: "跨國豪華遊輪・安排面海外艙", address: "斯德哥爾摩 → 赫爾辛基 過夜遊輪" },
+                    { date: "2026/07/20 (一)", city: "HELLA 海德拉", name: "STRACTA HOTEL", tag: "冰島南岸現代度假旅館", address: "Rangárflatir 4 Rangárþing ytra South Iceland 850 IS" },
+                    { date: "2026/07/21 (二)", city: "VIK 維克", name: "HOTEL DYRHOLAEY", tag: "冰島最南端黑沙灘旁景觀旅館", address: "BREKKUM, VIK I MYRDAL, 0871, IS" },
+                    { date: "2026/07/22 (三)", city: "REYKJAVIK 雷克雅維克", name: "FOSSHOTEL REYKJAVIK", tag: "冰島首都最大規模四星級飯店", address: "ÞÓRUNNARTÚN 1, LAUGARDALUR, REYKJAVIK, 105, ICELAND" },
+                    { date: "2026/07/23 (四)", city: "BERGEN 卑爾根", name: "THON HOTEL BERGEN AIRPORT", tag: "挪威知名連鎖商務度假飯店", address: "Kokstadvegen 3 Kokstad Bergen Hordaland 5257 NO" },
+                    { date: "2026/07/24 (五)", city: "BALESTRAND 巴烈斯特蘭", name: "KVIKNES HOTEL", tag: "百年歷史峽灣貴族旅館（峽灣畔名宿）", address: "KVIKNEVEGEN 8, 6899, BALESTRAND, NORWAY" },
+                    { date: "2026/07/25 (六)", city: "GEIRANGER 蓋倫格", name: "HAVILA HOTEL GEIRANGER", tag: "蓋倫格峽灣區景觀房", address: "GEIRANGERVEGEN 22 GEIRANGER STRANDA N-6216 NO" },
+                    { date: "2026/07/26 (日)", city: "HAMAR 哈馬爾", name: "SCANDIC HAMAR", tag: "北歐最大連鎖 Scandic 飯店", address: "Vangsvegen 121 Hamar 2318 NO" },
+                    { date: "2026/07/27 (一)", city: "北海過夜遊輪", name: "DFDS SCANDINAVIAN SEAWAYS", tag: "跨國豪華遊輪・安排面海外艙", address: "奧斯陸 → 哥本哈根 過夜遊輪" },
+                    { date: "2026/07/28 (二)", city: "COPENHAGEN 哥本哈根", name: "AC HOTEL BELLA SKY COPENHAGEN", tag: "萬豪旗下北歐地標雙塔設計飯店", address: "MARTHA CHRISTENSENS VEJ 5, COPENHAGEN, DENMARK, 2300" }
+                ],
+                itinerary: [
+                    { day: "Day 1", date: "7/17 (五)", route: "台北 Taipei / 杜拜轉機", spots: "搭乘阿聯酋航空 A380 旗艦客機經杜拜轉機飛往北歐瑞典首都斯德哥爾摩。", breakfast: "X", lunch: "X", dinner: "機上供應", hotel: "夜宿機上" },
+                    { day: "Day 2", date: "7/18 (六)", route: "杜拜 / 斯德哥爾摩 Stockholm（瑞典）", spots: "北方威尼斯市區觀光：【瓦薩戰艦博物館】（入內）、【市政廳】、【斯德哥爾摩舊城區】、【斯德哥爾摩王宮】。", breakfast: "機上供應", lunch: "敬請自理", dinner: "中式七菜一湯", hotel: "ELITE HOTEL CAROLINA TOWER" },
+                    { day: "Day 3", date: "7/19 (日)", route: "斯德哥爾摩 ++ 詩麗雅號過夜遊輪 ++ 赫爾辛基（芬蘭）", spots: "【夏宮卓寧霍姆宮 Drottningholm Palace】（世界遺產）；傍晚搭乘【詩麗雅遊輪 Tallink Silja】橫越波羅的海（請準備輕便過夜包）。", breakfast: "飯店內早餐", lunch: "北歐風味料理", dinner: "船上斯堪地那維亞式自助大餐", hotel: "TALLINK SILJA OY (遊輪)" },
+                    { day: "Day 4", date: "7/20 (一)", route: "赫爾辛基 / 雷克雅維克（冰島） － 藍湖溫泉 － 西南部小鎮", spots: "芬蘭首都觀光：【參議院廣場與赫爾辛基大教堂】、【烏斯佩斯基大教堂】、【露天市集廣場】；午後飛往冰島體驗【藍湖溫泉】。", breakfast: "船上北歐式自助餐", lunch: "配合班機，發餐費 20 歐元", dinner: "冰島風味料理", hotel: "STRACTA HOTEL" },
+                    { day: "Day 5", date: "7/21 (二)", route: "冰島西南部小鎮 － 冰島南岸奇景 － 冰島南部小鎮", spots: "【西爾加蘭第瀑布】、【斯科加瀑布】、【傑古沙龍冰河潟湖水陸兩用船】、【鑽石沙灘】。", breakfast: "飯店內早餐", lunch: "冰島風味料理", dinner: "旅館主廚推薦料理", hotel: "HOTEL DYRHOLAEY" },
+                    { day: "Day 6", date: "7/22 (三)", route: "冰島南部小鎮 － 金環之旅 － 雷克雅維克市區觀光", spots: "【黃金瀑布】、【史托克間歇泉】、【辛格維利爾國家公園】、【冰島馬秀】；首都【哈爾格林姆教堂】、【哈帕音樂廳】、【太陽航海者】。", breakfast: "飯店內早餐", lunch: "蕃茄農場 + 冰島馬秀", dinner: "中式七菜一湯", hotel: "FOSSHOTEL REYKJAVIK" },
+                    { day: "Day 7", date: "7/23 (四)", route: "雷克雅維克 / 卑爾根 Bergen（挪威）", spots: "飛往挪威峽灣門戶卑爾根：搭乘【佛洛伊恩山纜車】俯瞰七山之都，漫步世界遺產【布里根木屋群】與【卑爾根漁市場】。", breakfast: "飯店內早餐", lunch: "配合班機，發餐費 20 歐元", dinner: "中式七菜一湯", hotel: "THON HOTEL BERGEN AIRPORT" },
+                    { day: "Day 8", date: "7/24 (五)", route: "卑爾根 － Voss － 挪威縮影景觀火車 － 索格納峽灣遊船", spots: "搭乘高山火車與世界最陡【弗洛姆景觀火車】，乘船暢遊峽灣之王【索格納峽灣】（約2小時），入住百年峽灣貴族旅館。", breakfast: "飯店內早餐", lunch: "峽灣區三道式料理", dinner: "峽灣區三道式料理", hotel: "KVIKNES HOTEL (峽灣貴族旅館)" },
+                    { day: "Day 9", date: "7/25 (六)", route: "索格納峽灣區 － 布里斯達冰河 － 蓋倫格峽灣遊船", spots: "搭乘【精靈登山車 Troll Car】近距離探訪【布里斯達冰河】，乘船巡遊世界遺產挪威之眼【蓋倫格峽灣】（七姊妹瀑布）。", breakfast: "飯店內早餐", lunch: "峽灣區三道式料理", dinner: "峽灣區三道式料理", hotel: "HAVILA HOTEL GEIRANGER" },
+                    { day: "Day 10", date: "7/26 (日)", route: "蓋倫格峽灣區 － 黃金之路 － 利勒哈默爾 － 哈馬爾", spots: "馳騁挪威景觀公路【老鷹之路】與【精靈之路】（視天候開放），參觀 1994 冬季奧運聖地【滑雪跳台】。", breakfast: "飯店內早餐", lunch: "北歐風味料理", dinner: "北歐風味料理", hotel: "SCANDIC HAMAR" },
+                    { day: "Day 11", date: "7/27 (一)", route: "哈馬爾 － 奧斯陸 Oslo ++ DFDS過夜遊輪 ++ 哥本哈根", spots: "挪威首都：【維格蘭雕刻公園】、【奧斯陸歌劇院】、【市政廳】、【阿克斯胡斯城堡】；傍晚搭乘【DFDS 過夜遊輪】航向丹麥。", breakfast: "飯店內早餐", lunch: "中式七菜一湯", dinner: "船上自助式晚餐", hotel: "DFDS SCANDINAVIAN SEAWAYS (遊輪)" },
+                    { day: "Day 12", date: "7/28 (二)", route: "哥本哈根 Copenhagen（北海雙城堡之旅）", spots: "造訪北歐凡爾賽宮【腓特烈堡】（水晶宮）與莎翁《哈姆雷特》舞台【克倫波堡】（世界遺產）。", breakfast: "船上北歐式自助餐", lunch: "中式七菜一湯", dinner: "BBQ 燒烤風味餐", hotel: "AC HOTEL BELLA SKY COPENHAGEN" },
+                    { day: "Day 13", date: "7/29 (三)", route: "哥本哈根（新港運河遊船・市區觀光） / 杜拜轉機", spots: "【新港運河遊船】、【小美人魚像】、【卡菲茵女神噴泉】、【阿馬林堡宮】、【市政廳】、【安徒生銅像】，午後前往機場搭機。", breakfast: "飯店自助式", lunch: "敬請自理", dinner: "機上供應", hotel: "夜宿機上" },
+                    { day: "Day 14", date: "7/30 (四)", route: "杜拜 / 抵達台北 Taipei", spots: "經杜拜轉機返抵桃園國際機場，圓滿結束北歐五國全覽14日之旅。", breakfast: "機上供應", lunch: "機上供應", dinner: "X", hotel: "溫暖的家" }
+                ]
+            },
+            {
+                id: "tour3",
+                tabTitle: "③ 冰島冰與火 11日 (7月阿聯酋)",
+                code: "26ED721EKX",
+                title: "玩樂369 經典冰島冰與火之旅 11日 (7月版)",
+                subtitle: "冰島環島1號公路・斯奈山半島・金環鑽石雙風景線・火山熔岩洞穴・賞鯨・海鸚季",
+                routeSummary: "台北 ✈ 杜拜 ✈ 阿姆斯特丹 ✈ 雷克雅維克 ➔ 博爾加內斯 ➔ 斯奈山半島 ➔ 阿庫瑞里（賞鯨）➔ 鑽石圈（眾神瀑布、米湖、黛提瀑布）➔ 埃伊爾斯塔濟 ➔ 西角山/冰河湖 ➔ 南岸冰川健行 ➔ 金環之旅/藍湖溫泉 ✈ 巴黎 ✈ 杜拜 ✈ 台北",
+                dateRange: "2026/07/21(二) ～ 2026/07/31(五)",
+                days: 11,
+                airlineMain: "阿聯酋航空 (EK A380) + 冰島航空 (FI)",
+                badge: "完整順時針環島・白日夢冒險王・夏季賞海鸚",
+                badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
+                heroImg: "https://images.unsplash.com/photo-1529963183134-61a90db47eaf?auto=format&fit=crop&w=1400&q=80",
+                meetingInfo: {
+                    time: "2026/07/21 (二) 20:50",
+                    place: "桃園國際機場 第二航廈 阿聯酋航空 25號櫃台"
+                },
+                baggage: "阿聯酋經濟艙採計重制 30KG（單件不超過 30KG）；歐陸／冰島中段航班託運限 1 件 20～23KG、隨身 1 件 7～10KG。",
+                routeMap: {
+                    type: "iceland-ring",
+                    title: "冰島 1 號公路完整順時針環島（金環 ＋ 鑽石圈雙風景線）",
+                    desc: "沿著冰島經典 1 號環島公路順時針繞行全島一圈，不走回頭路，一次囊括西部半島、北部賞鯨、東部峽灣與南部冰川。",
+                    nodes: [
+                        { step: "去程", name: "台北 ✈ 杜拜 ✈ 阿姆斯特丹 ✈ 雷克雅維克", mode: "✈ 阿聯酋 + 冰島航空", detail: "Day 1-2 抵達冰島並前往博爾加內斯" },
+                        { step: "Day 3", name: "斯奈山半島 ➔ 北部阿庫瑞里", mode: "🚌 119km + 225km", detail: "瓦汀舍利爾熔岩洞穴、教會山、黑教堂" },
+                        { step: "Day 4-5", name: "北部鑽石圈之旅 ➔ 東部小鎮", mode: "🚢 賞鯨 + 🚌 鑽石圈", detail: "阿庫瑞里賞鯨、眾神瀑布、米湖、地熱谷、黛提瀑布" },
+                        { step: "Day 6", name: "東部峽灣 ➔ 西角山 ➔ 傑古沙龍冰河湖", mode: "🚌 61km + 99km + 75km", detail: "天空之境蝙蝠山、維京村、冰河湖水陸兩用船、羽毛河峽谷" },
+                        { step: "Day 7", name: "南岸奇景 & 索爾黑馬冰川健行", mode: "🚌 冰川健行・雙瀑布", detail: "黑沙灘玄武岩、地吼雷海岬、斯科加瀑布" },
+                        { step: "Day 8", name: "金環之旅 ➔ 雷克雅維克 ➔ 藍湖溫泉", mode: "🚌 黃金圈 + 50km", detail: "黃金瀑布、間歇泉、板塊裂谷、冰島馬秀、藍湖泡湯" },
+                        { step: "回程", name: "雷克雅維克 ✈ 巴黎 ✈ 杜拜 ✈ 台北", mode: "✈ 巴黎市區觀光購物", detail: "Day 9 塞納河遊船與百貨購物，Day 11 返抵台北" }
+                    ],
+                    svgPoints: [
+                        { x: 105, y: 175, label: "雷克雅維克 / 藍湖", sub: "Day 2 入境 / Day 8 泡湯", color: "#38BDF8" },
+                        { x: 75,  y: 120, label: "斯奈山半島", sub: "Day 3 熔岩洞穴/教會山", color: "#F59E0B" },
+                        { x: 215, y: 75,  label: "阿庫瑞里 & 米湖鑽石圈", sub: "Day 4-5 賞鯨/黛提瀑布", color: "#10B981" },
+                        { x: 385, y: 105, label: "埃伊爾斯塔濟 (東部)", sub: "Day 5 國家森林", color: "#38BDF8" },
+                        { x: 350, y: 185, label: "西角山 & 傑古沙龍冰河湖", sub: "Day 6 水陸兩用船", color: "#F59E0B" },
+                        { x: 215, y: 220, label: "南岸黑沙灘 & 冰川健行", sub: "Day 7 索爾黑馬冰川", color: "#10B981" },
+                        { x: 165, y: 180, label: "金環之旅 & 冰島馬秀", sub: "Day 8 黃金圈", color: "#38BDF8" }
+                    ],
+                    svgPath: "M 105 175 L 115 145 L 75 120 L 145 95 L 215 75 L 315 80 L 385 105 L 350 185 L 215 220 L 165 180 L 105 175",
+                    extraCity: { name: "回程加碼暢遊：法國・巴黎 Paris", note: "Day 9 搭乘塞納河遊船、造訪拉法葉與巴黎春天百貨" }
+                },
+                highlights: [
+                    {
+                        title: "冰島完整順時針環島 + 鑽石圈風景線",
+                        desc: "深入冰島北部阿克雷里、米湖偽火山口群、火山地熱谷及歐洲水量最大「黛提瀑布」。",
+                        img: "https://images.unsplash.com/photo-1500049242364-5f500807cdd7?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "瓦汀舍利爾火山熔岩洞穴探險",
+                        desc: "配戴頭盔與手電筒沿螺旋階梯深入地底 35 公尺，探索八千年前火山爆發遺留的七彩岩漿壁。",
+                        img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "北部阿克雷里出海賞鯨之旅 (3小時)",
+                        desc: "乘船航行於埃亞峽灣海域，尋找座頭鯨、小鬚鯨與海豚躍出海面的震撼瞬間。",
+                        img: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "天空之境西角山 Vestrahorn & 維京村",
+                        desc: "造訪攝影師最愛的蝙蝠山倒影秘境，並入內參觀電影取景打造的草皮屋維京村。",
+                        img: "https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "《白日夢冒險王》經典取景巡禮",
+                        desc: "重溫電影中滑板公路、教會山、斯科加瀑布與冰河湖等令人屏息的冰與火交織場景。",
+                        img: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?auto=format&fit=crop&w=800&q=80"
+                    }
+                ],
+                flights: [
+                    { leg: "去程 1", airline: "阿聯酋航空 EK367 (A380)", depTime: "2026/07/21(二) 23:50", depAirport: "桃園機場 (TPE)", arrTime: "2026/07/22(三) 04:35", arrAirport: "杜拜機場 (DXB)", duration: "08小時45分" },
+                    { leg: "去程 2", airline: "阿聯酋航空 EK147", depTime: "2026/07/22(三) 07:50", depAirport: "杜拜機場 (DXB)", arrTime: "2026/07/22(三) 13:15", arrAirport: "阿姆斯特丹機場 (AMS)", duration: "07小時25分" },
+                    { leg: "中段 1", airline: "冰島航空 FI507", depTime: "2026/07/22(三) 17:05", depAirport: "阿姆斯特丹機場 (AMS)", arrTime: "2026/07/22(三) 18:20", arrAirport: "雷克雅維克機場 (KEF)", duration: "03小時15分" },
+                    { leg: "中段 2", airline: "冰島航空 FI542", depTime: "2026/07/29(三) 07:35", depAirport: "雷克雅維克機場 (KEF)", arrTime: "2026/07/29(三) 13:00", arrAirport: "巴黎戴高樂機場 (CDG)", duration: "03小時25分" },
+                    { leg: "回程 1", airline: "阿聯酋航空 EK074", depTime: "2026/07/30(四) 15:35", depAirport: "巴黎戴高樂機場 (CDG)", arrTime: "2026/07/31(五) 00:30", arrAirport: "杜拜機場 (DXB)", duration: "06小時55分" },
+                    { leg: "回程 2", airline: "阿聯酋航空 EK366 (A380)", depTime: "2026/07/31(五) 03:45", depAirport: "杜拜機場 (DXB)", arrTime: "2026/07/31(五) 16:15", arrAirport: "桃園機場 (TPE)", duration: "08小時30分" }
+                ],
+                hotels: [
+                    { date: "2026/07/22 (三)", city: "BORGARNES 博爾加內斯", name: "HOTEL VARMALAND", tag: "西部溫泉鄉溫馨度假旅館", address: "Borgarfjörður Borgarnes Western Region 0311 IS" },
+                    { date: "2026/07/23 (四)", city: "AKUREYRI 阿庫瑞里", name: "HOTEL EDDA AKUREYRI", tag: "冰島北部第一大城精選旅館", address: "Thorunnarstraeti Akureyri Northeast Region 600 IS" },
+                    { date: "2026/07/24 (五)", city: "MYVATN 米湖", name: "HOTEL LAXA 或 SEL-HOTEL MYVATN", tag: "米湖生態保護區景觀旅館", address: "Vid Olnbogaas Myvatn 660 IS / Skutustadir Myvatn IS-660 IS" },
+                    { date: "2026/07/25 (六)", city: "EGILSSTADIR 埃伊爾斯塔濟", name: "HERAD - BERJAYA ICELAND HOTELS", tag: "冰島連鎖 Berjaya 集團精選飯店", address: "MIDVANGUR 1-7, 700 EGILSSTADIR, ICELAND" },
+                    { date: "2026/07/26 (日)", city: "HELLA 海德拉", name: "LANDHOTEL", tag: "南岸曠野現代四星設計飯店", address: "Landborgir Rangárþing ytra South Iceland 0851 IS" },
+                    { date: "2026/07/27 (一)", city: "HELLA 海德拉", name: "STRACTA HOTEL 或 STRACTA HOTEL MOSFELL", tag: "南岸現代化度假旅館", address: "Rangárflatir 4, Hella 850 IS / THRUDVANGUR 6, 850 HELLA, ICELAND" },
+                    { date: "2026/07/28 (二)", city: "KEFLAVIK 凱夫拉維克", name: "COURTYARD BY MARRIOTT REYKJAVIK KEFLAVIK AIRPORT", tag: "國際連鎖萬豪集團旗下飯店", address: "ADALGATA 60, REYKJANESBAER, ICELAND, 230" },
+                    { date: "2026/07/29 (三)", city: "PARIS 巴黎", name: "MERCURE PARIS CDG AIRPORT & CONVENTION", tag: "雅高集團四星級飯店", address: "ROISSYPOLE OUEST, ROUTE DE LA COMMUNE, 95713 ROISSY CDG, FRANCE" }
+                ],
+                itinerary: [
+                    { day: "Day 1", date: "7/21 (二)", route: "台北 Taipei / 杜拜轉機", spots: "搭乘阿聯酋航空 A380 客機經杜拜轉機，展開冰島環島夢幻之旅。", breakfast: "X", lunch: "X", dinner: "機上供應", hotel: "夜宿機上" },
+                    { day: "Day 2", date: "7/22 (三)", route: "杜拜 / 阿姆斯特丹 / 雷克雅維克 － 博爾加內斯", spots: "抵達冰島雷克雅維克機場後，驅車前往西部小鎮博爾加內斯入住休息。", breakfast: "機上", lunch: "配合航班時間，敬請自理", dinner: "冰島風味料理", hotel: "HOTEL VARMALAND" },
+                    { day: "Day 3", date: "7/23 (四)", route: "博爾加內斯 － 斯奈山半島 － 阿克雷里（冰島北部）", spots: "【布迪爾黑教堂】、【瓦汀舍利爾火山熔岩洞穴探險】（含安全帽與手電筒，若天候取消退20歐元）、【Gatklettur 海蝕洞】、【教會山】。", breakfast: "飯店內早餐", lunch: "冰島風味料理", dinner: "旅館主廚推薦料理", hotel: "HOTEL EDDA AKUREYRI" },
+                    { day: "Day 4", date: "7/24 (五)", route: "冰島北部小鎮 － 鑽石圈之旅（賞鯨・眾神瀑布・米湖）", spots: "北方之都阿克雷里【出海賞鯨之旅 3小時】、【眾神瀑布 Goðafoss】、【米湖 Mývatn】、【偽火山口群】。", breakfast: "飯店內早餐", lunch: "冰島風味料理", dinner: "旅館主廚推薦料理", hotel: "HOTEL LAXA 或 SEL-HOTEL MYVATN" },
+                    { day: "Day 5", date: "7/25 (六)", route: "鑽石圈之旅（地熱谷・黛提瀑布） － 埃伊爾斯塔濟 － 東部小鎮", spots: "【火山地熱谷 Namafjall Hverir】、【黛提瀑布 Dettifoss】（普羅米修斯取景地）、【哈洛姆斯塔杜爾國家森林】、【布雷茲達斯維克】。", breakfast: "飯店內早餐", lunch: "冰島風味料理", dinner: "旅館主廚推薦料理", hotel: "HERAD - BERJAYA ICELAND HOTELS" },
+                    { day: "Day 6", date: "7/26 (日)", route: "冰島東部小鎮 － 天空之境西角山 － 冰河湖 － 南部小鎮", spots: "【都皮沃古爾】、【西角山 Vestrahorn 天空之境】、【維京村】、【瓦特納冰原傑古沙龍冰河潟湖水陸兩用船】、【羽毛河峽谷】。", breakfast: "旅館內早餐", lunch: "冰島鄉村風味料理", dinner: "旅館主廚推薦料理", hotel: "LANDHOTEL" },
+                    { day: "Day 7", date: "7/27 (一)", route: "南岸之旅（黑沙灘・冰川健行・彩虹瀑布） － 西南部小鎮", spots: "【黑沙灘與玄武岩岩石群】、【地吼雷海岬】、【索爾黑馬冰川健行】（含冰爪、冰鎬、安全帽）、【斯科加瀑布】。", breakfast: "飯店內早餐", lunch: "冰島燒烤肋排料理", dinner: "旅館主廚推薦料理", hotel: "STRACTA HOTEL 或 STRACTA HOTEL MOSFELL" },
+                    { day: "Day 8", date: "7/28 (二)", route: "金環之旅 － 雷克雅維克市區觀光 － 藍湖溫泉", spots: "【黃金瀑布】、【史托克間歇泉】、【辛格維利爾國家公園】、【冰島馬秀】；首都地標巡禮；晚間享受【藍湖溫泉】。", breakfast: "飯店內早餐", lunch: "蕃茄農場 + 冰島馬秀", dinner: "中式七菜一湯", hotel: "COURTYARD BY MARRIOTT REYKJAVIK KEFLAVIK AIRPORT" },
+                    { day: "Day 9", date: "7/29 (三)", route: "雷克雅維克 / 巴黎 Paris（塞納河遊船・百貨購物）", spots: "早晨搭機飛往巴黎，搭乘【塞納河遊船】並安排【拉法葉百貨】與【巴黎春天百貨】盡情購物。", breakfast: "飯店內早餐或早餐盒", lunch: "配合航班時間，敬請自理", dinner: "西式風味料理", hotel: "MERCURE PARIS CDG AIRPORT & CONVENTION" },
+                    { day: "Day 10", date: "7/30 (四)", route: "巴黎 Paris / 杜拜轉機", spots: "享用飯店早餐後前往巴黎戴高樂機場，搭機經杜拜返回台北。", breakfast: "飯店內早餐", lunch: "X", dinner: "機上供應", hotel: "夜宿機上" },
+                    { day: "Day 11", date: "7/31 (五)", route: "杜拜 / 抵達台北 Taipei", spots: "班機於今日下午抵達桃園國際機場，滿載冰與火的壯麗回憶返家。", breakfast: "機上供應", lunch: "機上供應", dinner: "X", hotel: "溫暖的家" }
+                ]
+            },
+            {
+                id: "tour4",
+                tabTitle: "④ 冰島冰與火 11日 (9月國泰)",
+                code: "26ED917CX",
+                title: "玩樂369 經典冰島冰與火之旅 11日 (9月極光季版)",
+                subtitle: "冰島環島1號公路・斯奈山半島・金環鑽石雙風景線・熔岩洞穴・冰河健行・馬秀",
+                routeSummary: "台北 ✈ 香港 ✈ 阿姆斯特丹 ✈ 雷克雅維克 ➔ 博爾加內斯 ➔ 斯奈山半島 ➔ 阿庫瑞里（賞鯨）➔ 鑽石圈（眾神瀑布、米湖、黛提瀑布）➔ 東部峽灣 ➔ 西角山/冰河湖 ➔ 南岸冰川健行 ➔ 金環之旅/藍湖溫泉 ✈ 巴黎 ✈ 香港 ✈ 台北",
+                dateRange: "2026/09/17(四) ～ 2026/09/27(日)",
+                days: 11,
+                airlineMain: "國泰航空 (CX) + 冰島航空 (FI)",
+                badge: "9月秋季極光初啟・完整順時針環島",
+                badgeColor: "bg-purple-100 text-purple-800 border-purple-200",
+                heroImg: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=1400&q=80",
+                meetingInfo: {
+                    time: "2026/09/17 (四) 16:45",
+                    place: "桃園國際機場 第一航廈 國泰航空 2號櫃台"
+                },
+                baggage: "國泰航空團體經濟艙每人可託運 1 件行李（限重 23KG）；歐陸／冰島中段航班託運限 1 件 20～23KG、隨身 7～10KG。",
+                routeMap: {
+                    type: "iceland-ring",
+                    title: "冰島 1 號公路完整順時針環島（金環 ＋ 鑽石圈・9月秋季極光季）",
+                    desc: "搭乘國泰航空經香港、阿姆斯特丹順暢飛抵雷克雅維克，沿 1 號環島公路順時針環島一圈，白天賞秋色瀑布、夜晚追尋極光。",
+                    nodes: [
+                        { step: "去程", name: "台北 ✈ 香港 ✈ 阿姆斯特丹 ✈ 雷克雅維克", mode: "✈ 國泰 + 冰島航空", detail: "Day 1-2 抵達首都並市區觀光" },
+                        { step: "Day 3", name: "博爾加內斯 ➔ 斯奈山半島 ➔ 阿庫瑞里", mode: "🚌 119km + 370km", detail: "熔岩洞穴探險、海蝕洞、黑教堂、教會山" },
+                        { step: "Day 4-5", name: "北部鑽石圈之旅 ➔ 東部峽灣小鎮", mode: "🚢 賞鯨 + 🚌 鑽石圈", detail: "出海賞鯨、眾神瀑布、米湖、地熱谷、黛提瀑布" },
+                        { step: "Day 6", name: "布雷茲達斯維克 ➔ 西角山 ➔ 傑古沙龍冰河湖", mode: "🚌 61km + 99km + 75km", detail: "天空之境西角山、維京村、冰河湖水陸兩用船" },
+                        { step: "Day 7", name: "南岸之旅（羽毛河峽谷・黑沙灘・冰川健行）", mode: "🚌 冰川健行 + 北極鮭餐", detail: "索爾黑馬冰川健行、黑沙灘玄武岩、斯科加瀑布" },
+                        { step: "Day 8", name: "金環之旅（黃金圈＋馬秀） ➔ 藍湖溫泉", mode: "🚌 黃金圈 + 87km", detail: "黃金瀑布、間歇泉、番茄農場餐、藍湖泡湯" },
+                        { step: "回程", name: "雷克雅維克 ✈ 巴黎 ✈ 香港 ✈ 台北", mode: "✈ 巴黎塞納河與購物", detail: "Day 9 塞納河遊船與百貨購物，Day 11 返抵台北" }
+                    ],
+                    svgPoints: [
+                        { x: 105, y: 175, label: "雷克雅維克 / 藍湖", sub: "Day 2 市區 / Day 8 藍湖", color: "#38BDF8" },
+                        { x: 75,  y: 120, label: "斯奈山半島", sub: "Day 3 熔岩洞穴/教會山", color: "#F59E0B" },
+                        { x: 215, y: 75,  label: "阿庫瑞里 & 米湖鑽石圈", sub: "Day 4-5 賞鯨/黛提瀑布", color: "#10B981" },
+                        { x: 385, y: 105, label: "東部峽灣小鎮", sub: "Day 5 國家森林", color: "#38BDF8" },
+                        { x: 350, y: 185, label: "西角山 & 傑古沙龍冰河湖", sub: "Day 6 水陸兩用船", color: "#F59E0B" },
+                        { x: 215, y: 220, label: "南岸峽谷 & 冰川健行", sub: "Day 7 羽毛河/黑沙灘", color: "#10B981" },
+                        { x: 165, y: 180, label: "金環之旅 & 冰島馬秀", sub: "Day 8 黃金圈", color: "#38BDF8" }
+                    ],
+                    svgPath: "M 105 175 L 115 145 L 75 120 L 145 95 L 215 75 L 315 80 L 385 105 L 350 185 L 215 220 L 165 180 L 105 175",
+                    extraCity: { name: "回程加碼暢遊：法國・巴黎 Paris", note: "Day 9 搭乘塞納河遊船、造訪拉法葉與巴黎春天百貨" }
+                },
+                highlights: [
+                    {
+                        title: "9月秋季金黃苔原與極光季初啟",
+                        desc: "9月中旬進入冰島極光觀賞季節，氣候較深冬穩定，白天賞秋色瀑布、夜晚有機會邂逅歐若拉。",
+                        img: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "冰島十大最美瀑布一次收集",
+                        desc: "走訪眾神瀑布、歐洲最大水量黛提瀑布、黃金瀑布、彩虹瀑布（斯科加）與水簾洞瀑布。",
+                        img: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "瓦汀舍利爾熔岩洞穴 + 索爾黑馬冰川健行",
+                        desc: "深入地底 35 公尺火山熔岩隧道，並穿戴專業冰爪踏上萬年冰川，雙重極限探險。",
+                        img: "https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "番茄農場溫室饗宴 + 冰島馬術秀",
+                        desc: "品嚐地熱溫室栽培的新鮮番茄三道式料理，並近距離欣賞冰島馬獨有的五種步態表演。",
+                        img: "https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "羽毛河峽谷 & 冰島北極鮭風味餐",
+                        desc: "漫步九千年冰河切割的羽毛河峽谷，並於南岸旅程特別安排品嚐冰島北極鮭料理。",
+                        img: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?auto=format&fit=crop&w=800&q=80"
+                    }
+                ],
+                flights: [
+                    { leg: "去程 1", airline: "國泰航空 CX565", depTime: "2026/09/17(四) 19:15", depAirport: "桃園機場 (TPE)", arrTime: "2026/09/17(四) 21:10", arrAirport: "香港機場 (HKG)", duration: "01小時55分" },
+                    { leg: "去程 2", airline: "國泰航空 CX271", depTime: "2026/09/17(四) 23:15", depAirport: "香港機場 (HKG)", arrTime: "2026/09/18(五) 06:55", arrAirport: "阿姆斯特丹機場 (AMS)", duration: "13小時40分" },
+                    { leg: "中段 1", airline: "冰島航空 FI501", depTime: "2026/09/18(五) 14:10", depAirport: "阿姆斯特丹機場 (AMS)", arrTime: "2026/09/18(五) 15:25", arrAirport: "雷克雅維克機場 (KEF)", duration: "03小時15分" },
+                    { leg: "中段 2", airline: "冰島航空 FI542", depTime: "2026/09/25(五) 07:35", depAirport: "雷克雅維克機場 (KEF)", arrTime: "2026/09/25(五) 13:00", arrAirport: "巴黎戴高樂機場 (CDG)", duration: "03小時25分" },
+                    { leg: "回程 1", airline: "國泰航空 CX260", depTime: "2026/09/26(六) 12:20", depAirport: "巴黎戴高樂機場 (CDG)", arrTime: "2026/09/27(日) 06:15", arrAirport: "香港機場 (HKG)", duration: "11小時55分" },
+                    { leg: "回程 2", airline: "國泰航空 CX564", depTime: "2026/09/27(日) 08:10", depAirport: "香港機場 (HKG)", arrTime: "2026/09/27(日) 10:00", arrAirport: "桃園機場 (TPE)", duration: "01小時50分" }
+                ],
+                hotels: [
+                    { date: "2026/09/18 (五)", city: "BORGARNES 博爾加內斯", name: "HOTEL BORGARNES", tag: "西部海灣小鎮經典飯店", address: "Egilsgata 12-16 Borgarnes 310 IS" },
+                    { date: "2026/09/19 (六)", city: "AKUREYRI 阿庫瑞里", name: "BRYGGJAN BOUTIQUE HOTEL", tag: "北方之都港灣精品設計旅館", address: "Strandgata 49 Akureyri Akureyrarbær 600 IS" },
+                    { date: "2026/09/20 (日)", city: "MYVATN 米湖", name: "SEL-HOTEL MYVATN", tag: "米湖偽火山口群正對面景觀飯店", address: "Skutustadir Myvatn IS-660 IS" },
+                    { date: "2026/09/21 (一)", city: "BREIDDALSVIK / ESKIFJORDUR", name: "HOTEL ESKIFJORDUR", tag: "東部峽灣海濱特色旅館", address: "Strandgata 47 Eskifjörður East Iceland 735 IS" },
+                    { date: "2026/09/22 (二)", city: "KALFAFELL 考爾瓦費德", name: "HOTEL SKAFTAFELL", tag: "鄰近瓦特納冰原國家公園景觀旅館", address: "Skaftafelli 2 Skaftafell 785 IS" },
+                    { date: "2026/09/23 (三)", city: "HELLA 海德拉", name: "HOTEL LOA", tag: "南岸現代北歐風精品旅館", address: "Austurvegur 19 Rangárþing eystra 860 IS" },
+                    { date: "2026/09/24 (四)", city: "KEFLAVIK 凱夫拉維克", name: "COURTYARD BY MARRIOTT REYKJAVIK KEFLAVIK AIRPORT", tag: "國際連鎖萬豪集團旗下飯店", address: "ADALGATA 60, REYKJANESBAER, ICELAND, 230" },
+                    { date: "2026/09/25 (五)", city: "PARIS 巴黎", name: "COURTYARD BY MARRIOTT PARIS LA DEFENSE WEST - COLOMBES", tag: "國際連鎖萬豪集團旗下四星飯店", address: "91 Boulevard Charles De Gaulle Colombes 92700 FR" }
+                ],
+                itinerary: [
+                    { day: "Day 1", date: "9/17 (四)", route: "台北 Taipei / 香港轉機", spots: "搭乘國泰航空經香港轉機飛往歐洲阿姆斯特丹，展開冰島環島之旅。", breakfast: "X", lunch: "X", dinner: "機上供應", hotel: "夜宿機上" },
+                    { day: "Day 2", date: "9/18 (五)", route: "香港 / 阿姆斯特丹 / 雷克雅維克（市區觀光） － 博爾加內斯", spots: "抵達雷克雅維克進行市區觀光：【哈爾格林姆教堂】、【太陽航海者】、【哈帕音樂廳】，隨後前往博爾加內斯。", breakfast: "機上", lunch: "配合航班時間，敬請自理", dinner: "冰島風味料理", hotel: "HOTEL BORGARNES" },
+                    { day: "Day 3", date: "9/19 (六)", route: "博爾加內斯 － 斯奈山半島 － 阿克雷里 Akureyri", spots: "【瓦汀舍利爾火山熔岩洞穴探險】、【Gatklettur 海蝕洞】、【布迪爾黑教堂】、【教會山（草帽山）】；傍晚抵達北方之都阿克雷里。", breakfast: "飯店內早餐", lunch: "冰島風味料理", dinner: "旅館主廚推薦料理", hotel: "BRYGGJAN BOUTIQUE HOTEL" },
+                    { day: "Day 4", date: "9/20 (日)", route: "阿克雷里 － 鑽石圈之旅（出海賞鯨・眾神瀑布・米湖）", spots: "【阿克雷里出海賞鯨之旅 3小時】、【眾神瀑布 Goðafoss】、【米湖 Mývatn】、【偽火山口群】。", breakfast: "飯店內早餐", lunch: "冰島風味料理", dinner: "旅館主廚推薦料理", hotel: "SEL-HOTEL MYVATN" },
+                    { day: "Day 5", date: "9/21 (一)", route: "鑽石圈之旅（地熱谷・黛提瀑布） － 埃伊爾斯塔濟 － 布雷茲達斯維克", spots: "【火山地熱谷 Namafjall Hverir】、【黛提瀑布 Dettifoss】、【哈洛姆斯塔杜爾森林】、東部峽灣小鎮。", breakfast: "飯店內早餐", lunch: "冰島風味料理", dinner: "旅館主廚推薦料理", hotel: "HOTEL ESKIFJORDUR" },
+                    { day: "Day 6", date: "9/22 (二)", route: "布雷茲達斯維克 － 西角山天空之境 － 冰河湖遊船 － 南部小鎮", spots: "【都皮沃古爾】、【西角山 Vestrahorn】、【維京村】、【瓦特納冰原傑古沙龍冰河潟湖水陸兩用船】。", breakfast: "旅館內早餐", lunch: "冰島鄉村風味料理", dinner: "旅館主廚推薦料理", hotel: "HOTEL SKAFTAFELL" },
+                    { day: "Day 7", date: "9/23 (三)", route: "南岸之旅（羽毛河峽谷・黑沙灘・冰川健行・斯科加瀑布）", spots: "【羽毛河峽谷】、【黑沙灘與玄武岩岩石群】、【地吼雷海岬】、【索爾黑馬冰川健行】、【斯科加瀑布】。", breakfast: "飯店內早餐", lunch: "冰島北極鮭料理", dinner: "旅館主廚推薦料理", hotel: "HOTEL LOA" },
+                    { day: "Day 8", date: "9/24 (四)", route: "金環之旅 － 藍湖溫泉 － 雷克雅維克", spots: "【黃金瀑布】、【史托克間歇泉】、【辛格維利爾國家公園】、【冰島馬秀】；午後前往【藍湖溫泉】泡湯舒緩。", breakfast: "飯店內早餐", lunch: "蕃茄農場 + 冰島馬秀", dinner: "中式七菜一湯", hotel: "COURTYARD BY MARRIOTT REYKJAVIK KEFLAVIK AIRPORT" },
+                    { day: "Day 9", date: "9/25 (五)", route: "雷克雅維克 / 巴黎 Paris（塞納河遊船・百貨購物）", spots: "搭機飛往花都巴黎，體驗【塞納河遊船】並安排【巴黎春天百貨】與【拉法葉百貨】自由購物。", breakfast: "飯店內早餐或早餐盒", lunch: "配合航班時間，敬請自理", dinner: "西式風味料理", hotel: "COURTYARD BY MARRIOTT PARIS LA DEFENSE WEST - COLOMBES" },
+                    { day: "Day 10", date: "9/26 (六)", route: "巴黎 Paris / 香港轉機", spots: "享用飯店早餐後前往戴高樂機場，搭乘國泰航空經香港返台。", breakfast: "飯店內早餐", lunch: "機上供應", dinner: "機上供應", hotel: "夜宿機上" },
+                    { day: "Day 11", date: "9/27 (日)", route: "香港 / 抵達台北 Taipei", spots: "班機於上午 10:00 抵達桃園國際機場，結束精彩的冰島環島11日之旅。", breakfast: "機上供應", lunch: "X", dinner: "X", hotel: "溫暖的家" }
+                ]
+            },
+            {
+                id: "tour5",
+                tabTitle: "⑤ 緩慢深度冰島 11日 (贈極光船)",
+                code: "26ED909CX",
+                title: "緩慢深度冰島 11日 (加贈極光夜遊船)",
+                subtitle: "慢遊不趕路・博爾加內斯連泊2晚・賞鯨豚遊船・海豹沙灘・Kerið火口湖・贈極光夜遊船",
+                routeSummary: "台北 ✈ 香港 ✈ 巴黎 ✈ 雷克雅維克 ➔ 博爾加內斯（連泊2晚）➔ 斯奈山半島（熔岩洞穴、海豹沙灘）➔ 黃金圈（火口湖、馬秀番茄農場）➔ 南岸冰川健行 ➔ 傑古沙龍冰河湖/羽毛河峽谷 ➔ 雙瀑布/藍湖溫泉 ➔ 雷克雅維克（賞鯨＋極光夜遊船）✈ 巴黎 ✈ 香港 ✈ 台北",
+                dateRange: "2026/09/09(三) ～ 2026/09/19(六)",
+                days: 11,
+                airlineMain: "國泰航空 (CX) + 冰島航空 (FI)",
+                badge: "贈價值NT$2,800極光夜遊船・連泊免搬行李",
+                badgeColor: "bg-teal-100 text-teal-800 border-teal-200",
+                heroImg: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=1400&q=80",
+                meetingInfo: {
+                    time: "2026/09/09 (三) 17:00",
+                    place: "桃園國際機場 第一航廈 國泰航空團體櫃台"
+                },
+                baggage: "國泰航空經濟艙託運行李 1 件（限重 23KG）；中段冰島航空行李規定依航空公司公告為準（一般為 1 件 23KG）。",
+                routeMap: {
+                    type: "iceland-slow",
+                    title: "冰島西岸・黃金圈・東南岸慢遊深度路線圖（含博爾加內斯連泊2晚）",
+                    desc: "專為喜愛從容漫遊的貴賓設計！捨棄每天拉車趕路的環島模式，特別安排博爾加內斯連住兩晚，深入探索西部半島、黃金圈與東南岸冰河秘境。",
+                    nodes: [
+                        { step: "去程", name: "台北 ✈ 香港 ✈ 巴黎 ✈ 雷克雅維克", mode: "✈ 國泰 + 冰島航空", detail: "Day 1-2 抵達後直接入住飯店養足精神" },
+                        { step: "Day 2-3", name: "博爾加內斯（連泊2晚）& 斯奈山半島", mode: "🚌 118km 往返免搬行李", detail: "熔岩洞穴、海豹沙灘、海蝕洞、黑教堂、教會山" },
+                        { step: "Day 4", name: "冰島黃金圈（含 Kerið 火口湖 & 馬秀）", mode: "🚌 118km + 80km", detail: "辛格維利爾、黃金瀑布、間歇泉、番茄農場午餐" },
+                        { step: "Day 5", name: "南岸冰川健行 & 黑沙灘玄武岩", mode: "🚌 80km + 40km", detail: "索爾黑馬冰川健行、黑沙灘、地吼雷海岬" },
+                        { step: "Day 6", name: "傑古沙龍冰河湖・鑽石沙灘・羽毛河峽谷", mode: "🚌 190km + 130km", detail: "瓦特納冰原水陸兩用船、鑽石冰塊沙灘" },
+                        { step: "Day 7", name: "電影雙瀑布 ➔ 藍湖溫泉 ➔ 雷克雅維克", mode: "🚌 70km + 160km + 50km", detail: "彩虹瀑布、水簾洞瀑布、藍湖泡湯享受" },
+                        { step: "Day 8", name: "雷克雅維克（日間賞鯨 ＋ 夜間極光遊船）", mode: "🚢 雙遊船出海體驗", detail: "日間賞鯨豚(2-3hr) ＋ 贈送極光夜遊船(2hr)" },
+                        { step: "回程", name: "雷克雅維克 ✈ 巴黎市區 ✈ 香港 ✈ 台北", mode: "✈ 巴黎市區觀光", detail: "Day 9 巴黎市區觀光與法式晚餐，Day 11 返抵台北" }
+                    ],
+                    svgPoints: [
+                        { x: 105, y: 175, label: "雷克雅維克 (賞鯨+極光船)", sub: "Day 7-8 雙出海體驗", color: "#10B981" },
+                        { x: 120, y: 130, label: "博爾加內斯 (連泊2晚)", sub: "Day 2-3 慢遊基地", color: "#F59E0B" },
+                        { x: 65,  y: 110, label: "斯奈山半島 & 海豹沙灘", sub: "Day 3 熔岩洞穴/教會山", color: "#38BDF8" },
+                        { x: 175, y: 165, label: "黃金圈 & Kerið 火口湖", sub: "Day 4 馬秀/番茄農場", color: "#10B981" },
+                        { x: 195, y: 220, label: "南岸冰川健行 & 黑沙灘", sub: "Day 5 索爾黑馬冰川", color: "#38BDF8" },
+                        { x: 345, y: 195, label: "傑古沙龍冰河湖 & 鑽石沙灘", sub: "Day 6 羽毛河峽谷", color: "#F59E0B" },
+                        { x: 100, y: 215, label: "藍湖溫泉 Blue Lagoon", sub: "Day 7 世界最大露天溫泉", color: "#10B981" }
+                    ],
+                    svgPath: "M 105 175 L 120 130 L 65 110 L 120 130 L 175 165 L 195 220 L 345 195 L 100 215 L 105 175",
+                    extraCity: { name: "Day 8 特別加贈：雷克雅維克賞極光夜遊船", note: "價值約 NT$2,800／人，航向無光害北大西洋海面追尋極光" }
+                },
+                highlights: [
+                    {
+                        title: "特別加贈：雷克雅維克賞極光夜遊船",
+                        desc: "9-10月限定好禮！夜晚乘船駛離港灣遠離光害，在純黑北大西洋海面上追尋歐若拉極光女神。",
+                        img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "慢遊節奏設計・博爾加內斯連泊兩晚",
+                        desc: "不以趕路方式環島，專注於冰島西部、黃金圈、南岸與東南岸精華，減少長途拉車與搬運行李辛勞。",
+                        img: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "雷克雅維克出海賞鯨豚遊船 (2-3小時)",
+                        desc: "從首都舊港出發航向北大西洋海域，專業生態導覽尋找座頭鯨、小鬚鯨與白喙海豚。",
+                        img: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "獨家包含：Kerið 火山口湖 & 海豹沙灘",
+                        desc: "造訪紅褐色火山岩環抱碧綠湖水的「世界之眼」火口湖，以及斯奈山半島野生海豹棲息沙灘。",
+                        img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        title: "八大特色門票全包・深度體驗冰與火",
+                        desc: "包含熔岩洞穴、火口湖、冰島馬秀、冰川健行、冰河湖遊船、羽毛河峽谷、賞鯨船與藍湖溫泉。",
+                        img: "https://images.unsplash.com/photo-1520769669658-f07657f5a307?auto=format&fit=crop&w=800&q=80"
+                    }
+                ],
+                flights: [
+                    { leg: "去程 1", airline: "國泰航空 CX531", depTime: "2026/09/09(三) 19:55", depAirport: "桃園機場 (TPE)", arrTime: "2026/09/09(三) 22:00", arrAirport: "香港機場 (HKG)", duration: "02小時05分" },
+                    { leg: "去程 2", airline: "國泰航空 CX261", depTime: "2026/09/10(四) 00:05", depAirport: "香港機場 (HKG)", arrTime: "2026/09/10(四) 07:55", arrAirport: "巴黎戴高樂機場 (CDG)", duration: "13小時50分" },
+                    { leg: "中段 1", airline: "冰島航空 FI543", depTime: "2026/09/10(四) 14:00", depAirport: "巴黎戴高樂機場 (CDG)", arrTime: "2026/09/10(四) 15:35", arrAirport: "雷克雅維克機場 (KEF)", duration: "02小時35分" },
+                    { leg: "中段 2", airline: "冰島航空 FI542", depTime: "2026/09/17(四) 07:35", depAirport: "雷克雅維克機場 (KEF)", arrTime: "2026/09/17(四) 13:00", arrAirport: "巴黎戴高樂機場 (CDG)", duration: "04小時25分" },
+                    { leg: "回程 1", airline: "國泰航空 CX260", depTime: "2026/09/18(五) 12:20", depAirport: "巴黎戴高樂機場 (CDG)", arrTime: "2026/09/19(六) 06:15", arrAirport: "香港機場 (HKG)", duration: "11小時55分" },
+                    { leg: "回程 2", airline: "國泰航空 CX530", depTime: "2026/09/19(六) 08:35", depAirport: "香港機場 (HKG)", arrTime: "2026/09/19(六) 10:25", arrAirport: "桃園機場 (TPE)", duration: "01小時50分" }
+                ],
+                hotels: [
+                    { date: "2026/09/10 (四)", city: "BORGARNES 博爾加內斯", name: "HOTEL BORGARNES", tag: "西部海灣小鎮經典飯店（連泊第1晚・免搬行李）", address: "Egilsgata 12-16 Borgarnes 310 IS" },
+                    { date: "2026/09/11 (五)", city: "BORGARNES 博爾加內斯", name: "HOTEL BORGARNES", tag: "西部海灣小鎮經典飯店（連泊第2晚・免搬行李）", address: "Egilsgata 12-16 Borgarnes 310 IS" },
+                    { date: "2026/09/12 (六)", city: "SELFOSS 塞爾福斯", name: "HOTEL SELFOSS", tag: "冰島西南部河畔星級飯店", address: "Eyravegur 2 Selfoss 800 IS" },
+                    { date: "2026/09/13 (日)", city: "VIK / Kirkjubaejarklaustur", name: "HOTEL BURFELL", tag: "南岸黑沙灘維克附近溫馨旅館", address: "Steig Vik I Myrdal South Iceland 0871 IS" },
+                    { date: "2026/09/14 (一)", city: "Kirkjubaejarklaustur 南部小鎮", name: "HOTEL LAKI", tag: "冰島東南部苔原景觀度假旅館", address: "Efri-Vík Kirkjubaejarklaustur South Iceland 880 IS" },
+                    { date: "2026/09/15 (二)", city: "REYKJAVIK 雷克雅維克", name: "HOTEL REYKJAVIK ASKJA", tag: "冰島首都現代化設計飯店", address: "NAUTHOLSVEGUR 52, 102 REYKJAVIK, ICELAND" },
+                    { date: "2026/09/16 (三)", city: "KEFLAVIK 凱夫拉維克", name: "PARK INN BY RADISSON REYKJAVIK KEFLAVIK AIRPORT", tag: "麗笙酒店集團旗下精選飯店", address: "Hafnargata 57 Reykjanesbær 230 IS" },
+                    { date: "2026/09/17 (四)", city: "ROISSY EN FRANCE 巴黎機場區", name: "HILTON PARIS CHARLES DE GAULLE AIRPORT", tag: "國際連鎖希爾頓四星級飯店", address: "8 RUE DE ROME TREMBLAY-EN-FRANCE, 93290, FRANCE" }
+                ],
+                itinerary: [
+                    { day: "Day 1", date: "9/9 (三)", route: "台北 Taipei / 香港轉機", spots: "搭乘國泰航空班機經香港轉機飛往巴黎，開啟緩慢深度冰島之旅。", breakfast: "X", lunch: "X", dinner: "機上餐食", hotel: "夜宿機上" },
+                    { day: "Day 2", date: "9/10 (四)", route: "香港 / 巴黎 / 雷克雅維克機場 － 博爾加內斯（養足精神）", spots: "抵達冰島後體恤長途飛行辛勞，不安排緊湊景點，直接前往博爾加內斯享用晚餐、調整時差。", breakfast: "機上餐食", lunch: "配合中段航班，機場自理", dinner: "旅館當地西式料理", hotel: "HOTEL BORGARNES (連泊1)" },
+                    { day: "Day 3", date: "9/11 (五)", route: "博爾加內斯 － 斯奈山半島深度一日遊 － 博爾加內斯", spots: "【瓦汀舍利爾火山熔岩洞穴探險（含門票）】、【海豹沙灘 Ytri Tunga】、【Gatklettur 海蝕洞】、【布迪爾黑教堂】、【教會山】，連泊免搬行李。", breakfast: "旅館西式早餐", lunch: "冰島西式三道料理", dinner: "旅館西式特色料理", hotel: "HOTEL BORGARNES (連泊2)" },
+                    { day: "Day 4", date: "9/12 (六)", route: "博爾加內斯 － 冰島黃金圈（含火口湖・馬秀・番茄農場） － 南部小鎮", spots: "【辛格維利爾國家公園】、【黃金瀑布】、【間歇泉】、【Kerið 火口湖（含門票）】、【特色馬秀表演（含門票）與番茄農場參觀】。", breakfast: "旅館西式早餐", lunch: "番茄農場特色三道料理", dinner: "旅館西式推薦料理", hotel: "HOTEL SELFOSS" },
+                    { day: "Day 5", date: "9/13 (日)", route: "冰島南部小鎮 － 冰河健行與黑沙灘 － 維克附近小鎮", spots: "【索爾黑馬冰川健行體驗（含門票與裝備，限10歲以上）】、【黑沙灘 Reynisfjara 與玄武岩岩石群】、【地吼雷海岬】。", breakfast: "旅館西式早餐", lunch: "冰島三道西式料理", dinner: "旅館西式當地料理", hotel: "HOTEL BURFELL" },
+                    { day: "Day 6", date: "9/14 (一)", route: "南部小鎮 － 傑古沙龍冰河湖・鑽石沙灘 － 羽毛河峽谷 － 南部小鎮", spots: "瓦特納冰川南緣【傑古沙龍冰河湖水陸兩用遊船（含門票）】、【鑽石沙灘】、【羽毛河峽谷（含門票）】。", breakfast: "旅館西式早餐", lunch: "當地西式三道料理", dinner: "冰島旅館西式料理", hotel: "HOTEL LAKI" },
+                    { day: "Day 7", date: "9/15 (二)", route: "南部小鎮 － 電影取景雙瀑布 － 藍湖溫泉 － 雷克雅維克", spots: "【斯科加爾彩虹瀑布】、【塞里雅蘭水簾洞瀑布】；午後前往【藍湖溫泉（含門票、矽土泥面膜、飲料、毛巾）】悠閒泡湯。", breakfast: "旅館西式早餐", lunch: "冰島西式特色料理", dinner: "泡溫泉方便，藍湖景區自理", hotel: "HOTEL REYKJAVIK ASKJA" },
+                    { day: "Day 8", date: "9/16 (三)", route: "雷克雅維克（市區觀光・賞鯨豚遊船・贈極光夜遊船）", spots: "【賞鯨豚遊船（約2-3小時）】、首都【哈爾格林姆大教堂】、【太陽航海者】、【哈帕音樂廳】；晚間特別贈送【賞極光夜遊船（約2小時）】。", breakfast: "旅館西式早餐", lunch: "中式七菜一湯", dinner: "冰島特色西式三道料理", hotel: "PARK INN BY RADISSON REYKJAVIK KEFLAVIK AIRPORT" },
+                    { day: "Day 9", date: "9/17 (四)", route: "雷克雅維克機場 / 巴黎 Paris（市區觀光・西式晚餐）", spots: "搭乘中段航班飛往巴黎，依實際航班時間安排巴黎市區觀光與經典法式西餐。", breakfast: "早餐餐盒", lunch: "配合航班，機場自理", dinner: "經典當地西式三道料理", hotel: "HILTON PARIS CHARLES DE GAULLE AIRPORT" },
+                    { day: "Day 10", date: "9/18 (五)", route: "巴黎 Paris / 香港轉機", spots: "享用飯店西式早餐後前往巴黎戴高樂機場，搭機經香港返回台北。", breakfast: "飯店西式早餐", lunch: "機上餐食", dinner: "機上餐食", hotel: "夜宿機上" },
+                    { day: "Day 11", date: "9/19 (六)", route: "香港 / 抵達台北 Taipei", spots: "班機於上午 10:25 抵達桃園國際機場，結束慢遊深度冰島11日美好旅程。", breakfast: "機上餐食", lunch: "X", dinner: "X", hotel: "溫暖的家" }
+                ]
+            }
+        ];
+
+        // 當前選中的分頁 ('overview' 或 tour1 ~ tour5)
+        let currentTab = 'overview';
+
+        // 初始化頁面
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTabs();
+            renderContent();
+        });
+
+        // 切換分頁
+        function switchTab(tabId) {
+            currentTab = tabId;
+            renderTabs();
+            renderContent();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 渲染上方導覽分頁
+        function renderTabs() {
+            const container = document.getElementById('tourTabsContainer');
+            let html = `
+                <button onclick="switchTab('overview')" 
+                    class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition cursor-pointer ${
+                        currentTab === 'overview' 
+                        ? 'bg-nordic-deep text-white shadow-md ring-2 ring-emerald-400/50' 
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    }">
+                    <i class="fa-solid fa-table-columns text-emerald-500"></i>
+                    <span>五團總覽與快速比較表</span>
+                </button>
+            `;
+
+            TOURS_DATA.forEach(tour => {
+                const isActive = currentTab === tour.id;
+                html += `
+                    <button onclick="switchTab('${tour.id}')" 
+                        class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition cursor-pointer ${
+                            isActive 
+                            ? 'bg-nordic-navy text-white shadow-md ring-2 ring-sky-400/50' 
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        }">
+                        <span>${tour.tabTitle}</span>
+                        <span class="text-xs px-2 py-0.5 rounded-md ${isActive ? 'bg-white/20 text-sky-100' : 'bg-white text-slate-500'}">${tour.code}</span>
+                    </button>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 渲染主內容
+        function renderContent() {
+            const app = document.getElementById('appContent');
+            if (currentTab === 'overview') {
+                app.innerHTML = renderOverviewView();
+            } else {
+                const tour = TOURS_DATA.find(t => t.id === currentTab);
+                if (tour) {
+                    app.innerHTML = renderTourDetailView(tour);
+                }
+            }
+        }
+
+        // 視圖 0：五團總覽與快速比較表（已移除領隊、聯絡專線與小費欄位）
+        function renderOverviewView() {
+            return `
+                <div class="space-y-8">
+                    <!-- 導覽提示區塊 -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-black text-nordic-deep">五大精選團體行程・一覽與快速比對</h2>
+                                <p class="text-slate-600 text-sm mt-1">點擊下方任一團體卡片或「查看完整手冊」，即可瀏覽簡易路線圖、詳細航班時刻、每日三餐與飯店規格。</p>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-600 bg-slate-50 px-4 py-2.5 rounded-2xl border border-slate-200/60">
+                                <i class="fa-solid fa-compass text-sky-500"></i>
+                                <span>共收錄 <strong>5 個出發梯次</strong>（2026年7月夏季盛典 & 9月秋季極光）</span>
+                            </div>
+                        </div>
+
+                        <!-- 五團視覺卡片網格 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                            ${TOURS_DATA.map(tour => `
+                                <div class="group bg-white rounded-2xl border border-slate-200 hover:border-sky-400 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
+                                    <div class="relative h-44 overflow-hidden bg-slate-200">
+                                        <img src="${tour.heroImg}" alt="${tour.title}" onerror="this.src='https://placehold.co/800x450/0B192C/FFFFFF?text=Iceland+%26+Nordic'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/25 to-transparent"></div>
+                                        <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+                                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-nordic-deep/90 text-white backdrop-blur-sm">團號 ${tour.code}</span>
+                                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-500 text-white">${tour.days} 天</span>
+                                        </div>
+                                        <div class="absolute bottom-3 left-3 right-3 text-white">
+                                            <div class="text-xs text-sky-200 font-medium">${tour.dateRange}</div>
+                                            <h3 class="font-bold text-lg leading-snug mt-0.5">${tour.title}</h3>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                                        <div class="space-y-2.5 text-sm">
+                                            <div class="inline-block px-2.5 py-1 rounded-md text-xs font-semibold border ${tour.badgeColor}">
+                                                <i class="fa-solid fa-star mr-1"></i>${tour.badge}
+                                            </div>
+                                            <p class="text-slate-600 text-xs leading-relaxed">${tour.subtitle}</p>
+                                            
+                                            <div class="pt-2.5 border-t border-slate-100 space-y-1.5 text-xs text-slate-700">
+                                                <div class="flex items-start gap-2">
+                                                    <i class="fa-solid fa-plane-departure text-sky-600 mt-0.5 w-4"></i>
+                                                    <span><strong>航班組合：</strong>${tour.airlineMain}</span>
+                                                </div>
+                                                <div class="flex items-start gap-2">
+                                                    <i class="fa-solid fa-route text-emerald-600 mt-0.5 w-4"></i>
+                                                    <span class="line-clamp-2"><strong>路線主軸：</strong>${tour.routeSummary}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button onclick="switchTab('${tour.id}')" class="w-full py-2.5 px-4 rounded-xl bg-nordic-glacier hover:bg-nordic-navy text-nordic-navy hover:text-white font-bold text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+                                            <span>查看路線圖・航班・飯店手冊</span>
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- 橫向綜合規格比較表 -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80">
+                        <h3 class="text-lg sm:text-xl font-black text-nordic-deep mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-emerald-600"></i>
+                            <span>五團核心規格快速比較表</span>
+                        </h3>
+                        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                            <table class="w-full text-left border-collapse min-w-[920px]">
+                                <thead>
+                                    <tr class="bg-nordic-deep text-white text-xs sm:text-sm">
+                                        <th class="p-4 font-bold w-36">比較項目</th>
+                                        ${TOURS_DATA.map(t => `
+                                            <th class="p-4 font-bold border-l border-slate-700">
+                                                <div class="text-emerald-400 text-xs">${t.code}</div>
+                                                <div class="mt-0.5">${t.tabTitle}</div>
+                                            </th>
+                                        `).join('')}
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 text-xs sm:text-sm">
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 font-bold bg-slate-50 text-nordic-deep">出發與回程日期</td>
+                                        ${TOURS_DATA.map(t => `<td class="p-4 border-l border-slate-200 font-medium">${t.dateRange}<br><span class="text-xs text-sky-700 font-bold">（共 ${t.days} 天）</span></td>`).join('')}
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 font-bold bg-slate-50 text-nordic-deep">航空公司組合</td>
+                                        ${TOURS_DATA.map(t => `<td class="p-4 border-l border-slate-200 font-semibold text-slate-800">${t.airlineMain}</td>`).join('')}
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 font-bold bg-slate-50 text-nordic-deep">行程路線主軸</td>
+                                        ${TOURS_DATA.map(t => `<td class="p-4 border-l border-slate-200 leading-relaxed text-slate-700">${t.routeSummary}</td>`).join('')}
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 font-bold bg-slate-50 text-nordic-deep">核心特色亮點</td>
+                                        ${TOURS_DATA.map(t => `<td class="p-4 border-l border-slate-200 leading-relaxed"><span class="inline-block px-2 py-0.5 rounded text-xs font-bold mb-1 border ${t.badgeColor}">${t.badge}</span><br>${t.subtitle}</td>`).join('')}
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold bg-slate-50 text-nordic-deep">詳細手冊</td>
+                                        ${TOURS_DATA.map(t => `
+                                            <td class="p-4 border-l border-slate-200">
+                                                <button onclick="switchTab('${t.id}')" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition cursor-pointer">
+                                                    查看詳情 <i class="fa-solid fa-chevron-right ml-1"></i>
+                                                </button>
+                                            </td>
+                                        `).join('')}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 生成 SVG 互動式簡易路線示意圖
+        function renderRouteMapSection(tour) {
+            const rm = tour.routeMap;
+            const isNordic5 = rm.type === 'nordic-5';
+
+            // 根據團型繪製不同地理輪廓背景（冰島島嶼輪廓 vs 北歐五國區域示意）
+            const bgMapSvg = isNordic5 ? `
+                <!-- 北歐五國區域抽象輪廓 -->
+                <path d="M 35 70 Q 70 55 100 75 Q 110 105 75 115 Q 40 110 35 70 Z" fill="#1E3E62" stroke="#38BDF8" stroke-width="1.5" opacity="0.65"/>
+                <text x="65" y="65" fill="#7DD3FC" font-size="10" font-weight="bold" text-anchor="middle">冰島 ICELAND</text>
+                <path d="M 165 155 Q 185 85 255 55 Q 290 65 270 135 Q 265 175 230 175 Q 190 170 165 155 Z" fill="#1E3E62" stroke="#38BDF8" stroke-width="1.2" opacity="0.5"/>
+                <path d="M 270 75 Q 335 60 355 115 Q 345 180 300 185 Q 275 160 270 75 Z" fill="#1E3E62" stroke="#38BDF8" stroke-width="1.2" opacity="0.5"/>
+                <path d="M 365 70 Q 430 65 440 120 Q 425 155 380 145 Q 360 115 365 70 Z" fill="#1E3E62" stroke="#38BDF8" stroke-width="1.2" opacity="0.5"/>
+                <path d="M 225 190 Q 260 185 265 215 Q 240 225 225 210 Z" fill="#1E3E62" stroke="#38BDF8" stroke-width="1.2" opacity="0.5"/>
+            ` : `
+                <!-- 冰島島嶼經典輪廓示意 -->
+                <path d="M 65 95 Q 95 70 145 85 Q 195 60 265 65 Q 345 60 400 95 Q 425 140 385 190 Q 315 235 215 235 Q 125 235 85 195 Q 50 155 65 95 Z" fill="#1E3E62" stroke="#38BDF8" stroke-width="1.8" opacity="0.72"/>
+                <text x="235" y="142" fill="#7DD3FC" font-size="13" font-weight="bold" text-anchor="middle" opacity="0.55" letter-spacing="3">ICELAND 冰島</text>
+            `;
+
+            return `
+                <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 page-break-inside-avoid">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-black text-nordic-deep flex items-center gap-2.5">
+                                <span class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fa-solid fa-map-location-dot"></i></span>
+                                <span>簡易行程路線圖與行進動線</span>
+                            </h3>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-1">${rm.desc}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200 self-start sm:self-auto">
+                            ${rm.title}
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                        <!-- 左側：SVG 地理動線示意圖 -->
+                        <div class="lg:col-span-6 bg-nordic-deep rounded-2xl p-4 sm:p-5 text-white relative overflow-hidden shadow-inner">
+                            <div class="flex items-center justify-between text-xs text-sky-200 mb-2">
+                                <span class="font-bold"><i class="fa-solid fa-compass text-emerald-400 mr-1.5"></i>行進方位示意圖</span>
+                                <span class="text-[11px] text-slate-300">● 虛線為行進方向</span>
+                            </div>
+
+                            <svg viewBox="0 0 470 255" class="w-full h-auto select-none">
+                                <defs>
+                                    <marker id="arrow-${tour.id}" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#34D399" />
+                                    </marker>
+                                </defs>
+                                
+                                <!-- 海洋網格底紋 -->
+                                <rect x="0" y="0" width="470" height="255" rx="14" fill="#0B192C" />
+                                ${bgMapSvg}
+
+                                <!-- 路線軌跡線 -->
+                                <path d="${rm.svgPath}" fill="none" stroke="#34D399" stroke-width="2.6" stroke-dasharray="6 4" marker-mid="url(#arrow-${tour.id})" marker-end="url(#arrow-${tour.id})" />
+
+                                <!-- 各站點圓點與文字標註 -->
+                                ${rm.svgPoints.map((pt, idx) => `
+                                    <g>
+                                        <circle cx="${pt.x}" cy="${pt.y}" r="6.5" fill="${pt.color}" stroke="#FFFFFF" stroke-width="2" />
+                                        <text x="${pt.x}" y="${pt.y - 12}" fill="#FFFFFF" font-size="10.5" font-weight="bold" text-anchor="middle">${pt.label}</text>
+                                        <text x="${pt.x}" y="${pt.y + 18}" fill="#BAE6FD" font-size="8.5" text-anchor="middle">${pt.sub}</text>
+                                    </g>
+                                `).join('')}
+                            </svg>
+
+                            <!-- 延伸區域提示條 -->
+                            <div class="mt-3 p-3 rounded-xl bg-white/10 border border-white/15 flex items-center justify-between gap-2 text-xs">
+                                <span class="font-bold text-emerald-300"><i class="fa-solid fa-plane-up mr-1.5"></i>${rm.extraCity.name}</span>
+                                <span class="text-sky-100 text-[11px]">${rm.extraCity.note}</span>
+                            </div>
+                        </div>
+
+                        <!-- 右側：站點順序時間軸 -->
+                        <div class="lg:col-span-6 space-y-2.5">
+                            ${rm.nodes.map((node, i) => `
+                                <div class="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 hover:bg-sky-50/60 border border-slate-200/80 transition">
+                                    <div class="flex-shrink-0 w-16 text-center">
+                                        <span class="inline-block w-full py-1 px-1.5 rounded-lg bg-nordic-navy text-white text-[11px] font-bold">
+                                            ${node.step}
+                                        </span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex flex-wrap items-center justify-between gap-1">
+                                            <h4 class="font-black text-nordic-deep text-sm">${node.name}</h4>
+                                            <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">${node.mode}</span>
+                                        </div>
+                                        <p class="text-xs text-slate-600 mt-0.5">${node.detail}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // 視圖 1~5：單一團型完整貴賓詳情手冊（已移除領隊、聯絡專線與重要須知區塊）
+        function renderTourDetailView(tour) {
+            return `
+                <div class="space-y-8">
+                    <!-- 1. 行程主題視覺首圖卡 -->
+                    <div class="relative rounded-3xl overflow-hidden shadow-lg bg-nordic-deep text-white">
+                        <img src="${tour.heroImg}" alt="${tour.title}" onerror="this.src='https://placehold.co/1400x500/0B192C/FFFFFF?text=Nordic+Journey'" class="w-full h-64 sm:h-80 object-cover opacity-55">
+                        <div class="absolute inset-0 bg-gradient-to-r from-nordic-deep via-nordic-deep/80 to-transparent"></div>
+                        <div class="absolute inset-0 p-6 sm:p-10 flex flex-col justify-end">
+                            <div class="flex flex-wrap items-center gap-2 mb-3">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white shadow">團號：${tour.code}</span>
+                                <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md text-sky-100">${tour.dateRange}（共 ${tour.days} 天）</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-4xl font-black tracking-tight">${tour.title}</h2>
+                            <p class="text-sky-200 text-sm sm:text-lg mt-2 max-w-3xl font-medium">${tour.subtitle}</p>
+                            <div class="text-[11px] text-slate-300 mt-3">* 頁內風景與餐食照片僅供情境參考，實際景色隨季節天候而有所不同。</div>
+                        </div>
+                    </div>
+
+                    <!-- 2. 簡易行程路線圖與行進動線 -->
+                    ${renderRouteMapSection(tour)}
+
+                    <!-- 3. 參考航班時刻表與集合行李摘要 -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 page-break-inside-avoid space-y-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+                            <h3 class="text-lg sm:text-xl font-black text-nordic-deep flex items-center gap-2.5">
+                                <span class="w-9 h-9 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center"><i class="fa-solid fa-plane"></i></span>
+                                <span>參考航班時刻表與集合資訊</span>
+                            </h3>
+                            <span class="text-xs text-slate-500">※ 以上均為當地時間，實際起降時刻以航空公司最終公告為準</span>
+                        </div>
+
+                        <!-- 集合時間地點 & 行李額度簡明卡片 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-2xl bg-sky-50/80 border border-sky-200/80 flex items-start gap-3">
+                                <i class="fa-solid fa-location-dot text-sky-600 text-lg mt-0.5"></i>
+                                <div class="text-xs sm:text-sm">
+                                    <div class="font-bold text-sky-900">去程集合時間與機場櫃台</div>
+                                    <div class="text-slate-800 font-bold mt-0.5">${tour.meetingInfo.time} ｜ ${tour.meetingInfo.place}</div>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/80 flex items-start gap-3">
+                                <i class="fa-solid fa-suitcase-rolling text-amber-600 text-lg mt-0.5"></i>
+                                <div class="text-xs sm:text-sm">
+                                    <div class="font-bold text-amber-900">航班託運與隨身行李規範</div>
+                                    <div class="text-slate-700 mt-0.5">${tour.baggage}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                            <table class="w-full text-left border-collapse min-w-[700px]">
+                                <thead>
+                                    <tr class="bg-nordic-glacier text-nordic-deep text-xs sm:text-sm">
+                                        <th class="p-3.5 font-bold">航段</th>
+                                        <th class="p-3.5 font-bold">航空公司 / 班號</th>
+                                        <th class="p-3.5 font-bold">起飛時間 / 機場</th>
+                                        <th class="p-3.5 font-bold">抵達時間 / 機場</th>
+                                        <th class="p-3.5 font-bold">飛行時間</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 text-xs sm:text-sm">
+                                    ${tour.flights.map(f => `
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5">
+                                                <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${
+                                                    f.leg.includes('去程') ? 'bg-sky-100 text-sky-800' :
+                                                    f.leg.includes('回程') ? 'bg-emerald-100 text-emerald-800' :
+                                                    'bg-indigo-100 text-indigo-800'
+                                                }">${f.leg}</span>
+                                            </td>
+                                            <td class="p-3.5 font-bold text-nordic-deep">${f.airline}</td>
+                                            <td class="p-3.5">
+                                                <div class="font-bold text-slate-800">${f.depTime}</div>
+                                                <div class="text-xs text-slate-500">${f.depAirport}</div>
+                                            </td>
+                                            <td class="p-3.5">
+                                                <div class="font-bold text-slate-800">${f.arrTime}</div>
+                                                <div class="text-xs text-slate-500">${f.arrAirport}</div>
+                                            </td>
+                                            <td class="p-3.5 font-semibold text-slate-600">${f.duration}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- 4. 行程亮點特色圖文卡片 -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 page-break-inside-avoid">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+                            <h3 class="text-lg sm:text-xl font-black text-nordic-deep flex items-center gap-2.5">
+                                <span class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fa-solid fa-camera-retro"></i></span>
+                                <span>行程精選亮點與特殊體驗</span>
+                            </h3>
+                            <span class="text-xs text-slate-400">圖片僅供情境參考</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            ${tour.highlights.map(item => `
+                                <div class="rounded-2xl border border-slate-200/90 overflow-hidden bg-slate-50/50 hover:shadow-md transition flex flex-col">
+                                    <div class="h-44 overflow-hidden bg-slate-200 relative">
+                                        <img src="${item.img}" alt="${item.title}" onerror="this.src='https://placehold.co/600x400/1E3E62/FFFFFF?text=Scenic+Highlight'" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                                    </div>
+                                    <div class="p-4 flex-1">
+                                        <h4 class="font-bold text-nordic-deep text-base mb-1.5">${item.title}</h4>
+                                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${item.desc}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                    <!-- 5. 每日行程簡表與三餐餐食安排 (支援關鍵字篩選) -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5 mb-6">
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-black text-nordic-deep flex items-center gap-2.5">
+                                    <span class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center"><i class="fa-solid fa-route"></i></span>
+                                    <span>每日行程簡表與餐食・住宿安排</span>
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-500 mt-1">完整列出每日路線、景點特色、早午晚餐內容及當晚下榻旅館。</p>
+                            </div>
+
+                            <!-- 搜尋篩選框 -->
+                            <div class="relative w-full md:w-72 no-print">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                <input type="text" id="itinerarySearchInput" oninput="filterItinerary(this.value)" placeholder="搜尋景點、餐食或日期 (如: 藍湖、龍蝦)..." 
+                                    class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-slate-50">
+                            </div>
+                        </div>
+
+                        <div id="itineraryTimelineContainer" class="space-y-5">
+                            ${renderItineraryCards(tour.itinerary)}
+                        </div>
+                    </section>
+
+                    <!-- 6. 精選住宿飯店規格一覽表 -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 page-break-inside-avoid">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-5">
+                            <h3 class="text-lg sm:text-xl font-black text-nordic-deep flex items-center gap-2.5">
+                                <span class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center"><i class="fa-solid fa-hotel"></i></span>
+                                <span>全程精選住宿飯店規格一覽</span>
+                            </h3>
+                            <span class="text-xs text-slate-500">實際入住飯店以行前最終確認資料為準</span>
+                        </div>
+
+                        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                            <table class="w-full text-left border-collapse min-w-[750px]">
+                                <thead>
+                                    <tr class="bg-nordic-deep text-white text-xs sm:text-sm">
+                                        <th class="p-3.5 font-bold w-36">住宿日期</th>
+                                        <th class="p-3.5 font-bold w-48">城市 / 區域位置</th>
+                                        <th class="p-3.5 font-bold">飯店名稱 & 位置資訊</th>
+                                        <th class="p-3.5 font-bold w-56">住宿規格特色</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 text-xs sm:text-sm">
+                                    ${tour.hotels.map(h => `
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-nordic-navy">${h.date}</td>
+                                            <td class="p-3.5 font-semibold text-slate-700">${h.city}</td>
+                                            <td class="p-3.5">
+                                                <div class="font-black text-slate-900">${h.name}</div>
+                                                <div class="text-xs text-slate-500 mt-0.5"><i class="fa-solid fa-map-pin text-rose-500 mr-1"></i>${h.address}</div>
+                                            </td>
+                                            <td class="p-3.5">
+                                                <span class="inline-block px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200/70 text-xs font-bold">${h.tag}</span>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // 渲染每日行程卡片列表
+        function renderItineraryCards(itineraryList) {
+            if (!itineraryList || itineraryList.length === 0) {
+                return `
+                    <div class="text-center py-10 bg-slate-50 rounded-2xl border border-dashed border-slate-300 text-slate-500">
+                        <i class="fa-solid fa-magnifying-glass text-2xl mb-2 text-slate-400"></i>
+                        <p class="text-sm font-medium">找不到符合關鍵字的行程內容，請嘗試其他關鍵字。</p>
+                    </div>
+                `;
+            }
+
+            return itineraryList.map(item => `
+                <div class="rounded-2xl border border-slate-200 hover:border-sky-300 bg-white p-5 shadow-xs transition page-break-inside-avoid">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3.5 border-b border-slate-100">
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <span class="px-3 py-1 rounded-xl bg-nordic-deep text-white font-black text-xs sm:text-sm tracking-wide">${item.day}</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-800 font-bold text-xs sm:text-sm border border-sky-200/70">${item.date}</span>
+                            <h4 class="font-black text-base sm:text-lg text-nordic-deep">${item.route}</h4>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200/70 self-start lg:self-auto">
+                            <i class="fa-solid fa-bed text-amber-600"></i>
+                            <span>住宿：${item.hotel}</span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed mt-3.5">
+                        ${item.spots}
+                    </p>
+
+                    <!-- 三餐餐食資訊標籤列 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-4 pt-3.5 border-t border-slate-100 text-xs">
+                        <div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200/60">
+                            <span class="px-1.5 py-0.5 rounded bg-orange-100 text-orange-800 font-bold">早餐</span>
+                            <span class="text-slate-700 font-medium">${item.breakfast}</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200/60">
+                            <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">午餐</span>
+                            <span class="text-slate-700 font-medium">${item.lunch}</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200/60">
+                            <span class="px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold">晚餐</span>
+                            <span class="text-slate-700 font-medium">${item.dinner}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 即時篩選每日行程
+        function filterItinerary(keyword) {
+            const tour = TOURS_DATA.find(t => t.id === currentTab);
+            if (!tour) return;
+
+            const q = keyword.trim().toLowerCase();
+            const container = document.getElementById('itineraryTimelineContainer');
+
+            if (!q) {
+                container.innerHTML = renderItineraryCards(tour.itinerary);
+                return;
+            }
+
+            const filtered = tour.itinerary.filter(item => {
+                return (
+                    item.day.toLowerCase().includes(q) ||
+                    item.date.toLowerCase().includes(q) ||
+                    item.route.toLowerCase().includes(q) ||
+                    item.spots.toLowerCase().includes(q) ||
+                    item.breakfast.toLowerCase().includes(q) ||
+                    item.lunch.toLowerCase().includes(q) ||
+                    item.dinner.toLowerCase().includes(q) ||
+                    item.hotel.toLowerCase().includes(q)
+                );
+            });
+
+            container.innerHTML = renderItineraryCards(filtered);
+        }
+    </script>
+</body>
+</html>
